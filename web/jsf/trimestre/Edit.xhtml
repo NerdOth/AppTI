@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TrimestreEditDlg" widgetVar="TrimestreEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditTrimestreTitle}">
+            <h:form id="TrimestreEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{trimestreController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditTrimestreLabel_idTrim}" for="idTrim" />
+                        <p:inputText id="idTrim" value="#{trimestreController.selected.idTrim}" title="#{bundle.EditTrimestreTitle_idTrim}" required="true" requiredMessage="#{bundle.EditTrimestreRequiredMessage_idTrim}"/>
+                        <p:outputLabel value="#{bundle.EditTrimestreLabel_dateDebut}" for="dateDebut" />
+                        <p:calendar id="dateDebut" pattern="MM/dd/yyyy" value="#{trimestreController.selected.dateDebut}" title="#{bundle.EditTrimestreTitle_dateDebut}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditTrimestreLabel_dateFin}" for="dateFin" />
+                        <p:calendar id="dateFin" pattern="MM/dd/yyyy" value="#{trimestreController.selected.dateFin}" title="#{bundle.EditTrimestreTitle_dateFin}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditTrimestreLabel_etat}" for="etat" />
+                        <p:inputText id="etat" value="#{trimestreController.selected.etat}" title="#{bundle.EditTrimestreTitle_etat}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{trimestreController.update}" value="#{bundle.Save}" update="display,:TrimestreListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TrimestreEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TrimestreEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="JourFeriesViewDlg" widgetVar="JourFeriesViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewJourFeriesTitle}">
+            <h:form id="JourFeriesViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{jourFeriesController.selected != null}">
+                        <h:outputText value="#{bundle.ViewJourFeriesLabel_idF}"/>
+                        <h:outputText value="#{jourFeriesController.selected.idF}" title="#{bundle.ViewJourFeriesTitle_idF}"/>
+                        <h:outputText value="#{bundle.ViewJourFeriesLabel_jourDepart}"/>
+                        <h:outputText value="#{jourFeriesController.selected.jourDepart}" title="#{bundle.ViewJourFeriesTitle_jourDepart}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewJourFeriesLabel_nbrJours}"/>
+                        <h:outputText value="#{jourFeriesController.selected.nbrJours}" title="#{bundle.ViewJourFeriesTitle_nbrJours}"/>
+                        <h:outputText value="#{bundle.ViewJourFeriesLabel_evenement}"/>
+                        <h:outputText value="#{jourFeriesController.selected.evenement}" title="#{bundle.ViewJourFeriesTitle_evenement}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="JourFeriesViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

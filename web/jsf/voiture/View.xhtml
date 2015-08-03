@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="VoitureViewDlg" widgetVar="VoitureViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewVoitureTitle}">
+            <h:form id="VoitureViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{voitureController.selected != null}">
+                        <h:outputText value="#{bundle.ViewVoitureLabel_idVoiture}"/>
+                        <h:outputText value="#{voitureController.selected.idVoiture}" title="#{bundle.ViewVoitureTitle_idVoiture}"/>
+                        <h:outputText value="#{bundle.ViewVoitureLabel_matricule}"/>
+                        <h:outputText value="#{voitureController.selected.matricule}" title="#{bundle.ViewVoitureTitle_matricule}"/>
+                        <h:outputText value="#{bundle.ViewVoitureLabel_marque}"/>
+                        <h:outputText value="#{voitureController.selected.marque}" title="#{bundle.ViewVoitureTitle_marque}"/>
+                        <h:outputText value="#{bundle.ViewVoitureLabel_pf}"/>
+                        <h:outputText value="#{voitureController.selected.pf}" title="#{bundle.ViewVoitureTitle_pf}"/>
+                        <h:outputText value="#{bundle.ViewVoitureLabel_personne}"/>
+                        <h:outputText value="#{voitureController.selected.personne}" title="#{bundle.ViewVoitureTitle_personne}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="VoitureViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

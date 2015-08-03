@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="OrdreMissionViewDlg" widgetVar="OrdreMissionViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewOrdreMissionTitle}">
+            <h:form id="OrdreMissionViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{ordreMissionController.selected != null}">
+                        <h:outputText value="#{bundle.ViewOrdreMissionLabel_idOrdre}"/>
+                        <h:outputText value="#{ordreMissionController.selected.idOrdre}" title="#{bundle.ViewOrdreMissionTitle_idOrdre}"/>
+                        <h:outputText value="#{bundle.ViewOrdreMissionLabel_montant}"/>
+                        <h:outputText value="#{ordreMissionController.selected.montant}" title="#{bundle.ViewOrdreMissionTitle_montant}"/>
+                        <h:outputText value="#{bundle.ViewOrdreMissionLabel_ville}"/>
+                        <h:outputText value="#{ordreMissionController.selected.ville}" title="#{bundle.ViewOrdreMissionTitle_ville}"/>
+                        <h:outputText value="#{bundle.ViewOrdreMissionLabel_dateAller}"/>
+                        <h:outputText value="#{ordreMissionController.selected.dateAller}" title="#{bundle.ViewOrdreMissionTitle_dateAller}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewOrdreMissionLabel_heureAller}"/>
+                        <h:outputText value="#{ordreMissionController.selected.heureAller}" title="#{bundle.ViewOrdreMissionTitle_heureAller}">
+                            <f:convertDateTime pattern="HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewOrdreMissionLabel_objetMission}"/>
+                        <h:outputText value="#{ordreMissionController.selected.objetMission}" title="#{bundle.ViewOrdreMissionTitle_objetMission}"/>
+                        <h:outputText value="#{bundle.ViewOrdreMissionLabel_moyenTransport}"/>
+                        <h:outputText value="#{ordreMissionController.selected.moyenTransport}" title="#{bundle.ViewOrdreMissionTitle_moyenTransport}"/>
+                        <h:outputText value="#{bundle.ViewOrdreMissionLabel_kilometres}"/>
+                        <h:outputText value="#{ordreMissionController.selected.kilometres}" title="#{bundle.ViewOrdreMissionTitle_kilometres}"/>
+                        <h:outputText value="#{bundle.ViewOrdreMissionLabel_num}"/>
+                        <h:outputText value="#{ordreMissionController.selected.num}" title="#{bundle.ViewOrdreMissionTitle_num}"/>
+                        <h:outputText value="#{bundle.ViewOrdreMissionLabel_person}"/>
+                        <h:outputText value="#{ordreMissionController.selected.person}" title="#{bundle.ViewOrdreMissionTitle_person}"/>
+                        <h:outputText value="#{bundle.ViewOrdreMissionLabel_trim1}"/>
+                        <h:outputText value="#{ordreMissionController.selected.trim1}" title="#{bundle.ViewOrdreMissionTitle_trim1}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="OrdreMissionViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

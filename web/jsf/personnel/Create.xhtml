@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PersonnelCreateDlg" widgetVar="PersonnelCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreatePersonnelTitle}">
+            <h:form id="PersonnelCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{personnelController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreatePersonnelLabel_idPerson}" for="idPerson" />
+                        <p:inputText id="idPerson" value="#{personnelController.selected.idPerson}" title="#{bundle.CreatePersonnelTitle_idPerson}" required="true" requiredMessage="#{bundle.CreatePersonnelRequiredMessage_idPerson}"/>
+                        <p:outputLabel value="#{bundle.CreatePersonnelLabel_nom}" for="nom" />
+                        <p:inputText id="nom" value="#{personnelController.selected.nom}" title="#{bundle.CreatePersonnelTitle_nom}" required="true" requiredMessage="#{bundle.CreatePersonnelRequiredMessage_nom}"/>
+                        <p:outputLabel value="#{bundle.CreatePersonnelLabel_prenom}" for="prenom" />
+                        <p:inputText id="prenom" value="#{personnelController.selected.prenom}" title="#{bundle.CreatePersonnelTitle_prenom}" />
+                        <p:outputLabel value="#{bundle.CreatePersonnelLabel_matricule}" for="matricule" />
+                        <p:inputText id="matricule" value="#{personnelController.selected.matricule}" title="#{bundle.CreatePersonnelTitle_matricule}" />
+                        <p:outputLabel value="#{bundle.CreatePersonnelLabel_cin}" for="cin" />
+                        <p:inputText id="cin" value="#{personnelController.selected.cin}" title="#{bundle.CreatePersonnelTitle_cin}" />
+                        <p:outputLabel value="#{bundle.CreatePersonnelLabel_sexe}" for="sexe" />
+                        <p:inputText id="sexe" value="#{personnelController.selected.sexe}" title="#{bundle.CreatePersonnelTitle_sexe}" />
+                        <p:outputLabel value="#{bundle.CreatePersonnelLabel_residence}" for="residence" />
+                        <p:inputText id="residence" value="#{personnelController.selected.residence}" title="#{bundle.CreatePersonnelTitle_residence}" />
+                        <p:outputLabel value="#{bundle.CreatePersonnelLabel_echelle}" for="echelle" />
+                        <p:selectOneMenu id="echelle" value="#{personnelController.selected.echelle}" required="true" requiredMessage="#{bundle.EditPersonnelRequiredMessage_echelle}">
+                            <f:selectItems value="#{correspondrepasController.itemsAvailableSelectOne}"
+                                           var="echelleItem"
+                                           itemValue="#{echelleItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{personnelController.create}" value="#{bundle.Save}" update="display,:PersonnelListForm:datalist,:growl" oncomplete="handleSubmit(args,'PersonnelCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PersonnelCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

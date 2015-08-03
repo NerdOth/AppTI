@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CorrespondrepasEditDlg" widgetVar="CorrespondrepasEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditCorrespondrepasTitle}">
+            <h:form id="CorrespondrepasEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{correspondrepasController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditCorrespondrepasLabel_idCor}" for="idCor" />
+                        <p:inputText id="idCor" value="#{correspondrepasController.selected.idCor}" title="#{bundle.EditCorrespondrepasTitle_idCor}" required="true" requiredMessage="#{bundle.EditCorrespondrepasRequiredMessage_idCor}"/>
+                        <p:outputLabel value="#{bundle.EditCorrespondrepasLabel_echelle}" for="echelle" />
+                        <p:inputText id="echelle" value="#{correspondrepasController.selected.echelle}" title="#{bundle.EditCorrespondrepasTitle_echelle}" required="true" requiredMessage="#{bundle.EditCorrespondrepasRequiredMessage_echelle}"/>
+                        <p:outputLabel value="#{bundle.EditCorrespondrepasLabel_taux15}" for="taux15" />
+                        <p:inputText id="taux15" value="#{correspondrepasController.selected.taux15}" title="#{bundle.EditCorrespondrepasTitle_taux15}" />
+                        <p:outputLabel value="#{bundle.EditCorrespondrepasLabel_taux16}" for="taux16" />
+                        <p:inputText id="taux16" value="#{correspondrepasController.selected.taux16}" title="#{bundle.EditCorrespondrepasTitle_taux16}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{correspondrepasController.update}" value="#{bundle.Save}" update="display,:CorrespondrepasListForm:datalist,:growl" oncomplete="handleSubmit(args, 'CorrespondrepasEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="CorrespondrepasEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

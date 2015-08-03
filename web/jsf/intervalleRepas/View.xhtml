@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="IntervalleRepasViewDlg" widgetVar="IntervalleRepasViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewIntervalleRepasTitle}">
+            <h:form id="IntervalleRepasViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{intervalleRepasController.selected != null}">
+                        <h:outputText value="#{bundle.ViewIntervalleRepasLabel_idRepas}"/>
+                        <h:outputText value="#{intervalleRepasController.selected.idRepas}" title="#{bundle.ViewIntervalleRepasTitle_idRepas}"/>
+                        <h:outputText value="#{bundle.ViewIntervalleRepasLabel_heureDebut}"/>
+                        <h:outputText value="#{intervalleRepasController.selected.heureDebut}" title="#{bundle.ViewIntervalleRepasTitle_heureDebut}">
+                            <f:convertDateTime pattern="HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewIntervalleRepasLabel_heureFin}"/>
+                        <h:outputText value="#{intervalleRepasController.selected.heureFin}" title="#{bundle.ViewIntervalleRepasTitle_heureFin}">
+                            <f:convertDateTime pattern="HH:mm:ss" />
+                        </h:outputText>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="IntervalleRepasViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

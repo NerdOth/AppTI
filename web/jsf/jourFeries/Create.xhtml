@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="JourFeriesCreateDlg" widgetVar="JourFeriesCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateJourFeriesTitle}">
+            <h:form id="JourFeriesCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{jourFeriesController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateJourFeriesLabel_idF}" for="idF" />
+                        <p:inputText id="idF" value="#{jourFeriesController.selected.idF}" title="#{bundle.CreateJourFeriesTitle_idF}" required="true" requiredMessage="#{bundle.CreateJourFeriesRequiredMessage_idF}"/>
+                        <p:outputLabel value="#{bundle.CreateJourFeriesLabel_jourDepart}" for="jourDepart" />
+                        <p:calendar id="jourDepart" pattern="MM/dd/yyyy" value="#{jourFeriesController.selected.jourDepart}" title="#{bundle.EditJourFeriesTitle_jourDepart}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateJourFeriesLabel_nbrJours}" for="nbrJours" />
+                        <p:inputText id="nbrJours" value="#{jourFeriesController.selected.nbrJours}" title="#{bundle.CreateJourFeriesTitle_nbrJours}" />
+                        <p:outputLabel value="#{bundle.CreateJourFeriesLabel_evenement}" for="evenement" />
+                        <p:inputText id="evenement" value="#{jourFeriesController.selected.evenement}" title="#{bundle.CreateJourFeriesTitle_evenement}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{jourFeriesController.create}" value="#{bundle.Save}" update="display,:JourFeriesListForm:datalist,:growl" oncomplete="handleSubmit(args,'JourFeriesCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="JourFeriesCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

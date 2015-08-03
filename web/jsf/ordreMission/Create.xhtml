@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="OrdreMissionCreateDlg" widgetVar="OrdreMissionCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateOrdreMissionTitle}">
+            <h:form id="OrdreMissionCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{ordreMissionController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateOrdreMissionLabel_idOrdre}" for="idOrdre" />
+                        <p:inputText id="idOrdre" value="#{ordreMissionController.selected.idOrdre}" title="#{bundle.CreateOrdreMissionTitle_idOrdre}" required="true" requiredMessage="#{bundle.CreateOrdreMissionRequiredMessage_idOrdre}"/>
+                        <p:outputLabel value="#{bundle.CreateOrdreMissionLabel_montant}" for="montant" />
+                        <p:inputText id="montant" value="#{ordreMissionController.selected.montant}" title="#{bundle.CreateOrdreMissionTitle_montant}" />
+                        <p:outputLabel value="#{bundle.CreateOrdreMissionLabel_ville}" for="ville" />
+                        <p:inputText id="ville" value="#{ordreMissionController.selected.ville}" title="#{bundle.CreateOrdreMissionTitle_ville}" />
+                        <p:outputLabel value="#{bundle.CreateOrdreMissionLabel_dateAller}" for="dateAller" />
+                        <p:calendar id="dateAller" pattern="MM/dd/yyyy" value="#{ordreMissionController.selected.dateAller}" title="#{bundle.EditOrdreMissionTitle_dateAller}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateOrdreMissionLabel_heureAller}" for="heureAller" />
+                        <p:calendar id="heureAller" pattern="HH:mm:ss" value="#{ordreMissionController.selected.heureAller}" title="#{bundle.EditOrdreMissionTitle_heureAller}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateOrdreMissionLabel_objetMission}" for="objetMission" />
+                        <p:inputText id="objetMission" value="#{ordreMissionController.selected.objetMission}" title="#{bundle.CreateOrdreMissionTitle_objetMission}" />
+                        <p:outputLabel value="#{bundle.CreateOrdreMissionLabel_moyenTransport}" for="moyenTransport" />
+                        <p:inputText id="moyenTransport" value="#{ordreMissionController.selected.moyenTransport}" title="#{bundle.CreateOrdreMissionTitle_moyenTransport}" />
+                        <p:outputLabel value="#{bundle.CreateOrdreMissionLabel_kilometres}" for="kilometres" />
+                        <p:inputText id="kilometres" value="#{ordreMissionController.selected.kilometres}" title="#{bundle.CreateOrdreMissionTitle_kilometres}" />
+                        <p:outputLabel value="#{bundle.CreateOrdreMissionLabel_num}" for="num" />
+                        <p:inputText id="num" value="#{ordreMissionController.selected.num}" title="#{bundle.CreateOrdreMissionTitle_num}" />
+                        <p:outputLabel value="#{bundle.CreateOrdreMissionLabel_person}" for="person" />
+                        <p:selectOneMenu id="person" value="#{ordreMissionController.selected.person}" required="true" requiredMessage="#{bundle.EditOrdreMissionRequiredMessage_person}">
+                            <f:selectItems value="#{personnelController.itemsAvailableSelectOne}"
+                                           var="personItem"
+                                           itemValue="#{personItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateOrdreMissionLabel_trim1}" for="trim1" />
+                        <p:selectOneMenu id="trim1" value="#{ordreMissionController.selected.trim1}" required="true" requiredMessage="#{bundle.EditOrdreMissionRequiredMessage_trim1}">
+                            <f:selectItems value="#{trimestreController.itemsAvailableSelectOne}"
+                                           var="trim1Item"
+                                           itemValue="#{trim1Item}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{ordreMissionController.create}" value="#{bundle.Save}" update="display,:OrdreMissionListForm:datalist,:growl" oncomplete="handleSubmit(args,'OrdreMissionCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="OrdreMissionCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
