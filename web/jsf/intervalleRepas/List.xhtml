@@ -3,65 +3,63 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:composition template="/template.xhtml">
-
-
         <ui:define name="title">
             <h:outputText value="#{bundle.ListIntervalleRepasTitle}"></h:outputText>
         </ui:define>
-
         <ui:define name="body">
-            <h:form id="IntervalleRepasListForm">
-                <p:panel header="#{bundle.ListIntervalleRepasTitle}">
-                    <p:dataTable id="datalist" value="#{intervalleRepasController.items}" var="item"
-                                 selectionMode="single" selection="#{intervalleRepasController.selected}"
-                                 paginator="true"
-                                 rowKey="#{item.idRepas}"
-                                 rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
-                                 >
-
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
-
-                        <p:column>
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListIntervalleRepasEmpty}" rendered="#{intervalleRepasController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{intervalleRepasController.items.rowCount > 0}">
+                    <h:outputText value="#{intervalleRepasController.pagination.pageFirstItem + 1}..#{intervalleRepasController.pagination.pageLastItem + 1}/#{intervalleRepasController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{intervalleRepasController.previous}" value="#{bundle.Previous} #{intervalleRepasController.pagination.pageSize}" rendered="#{intervalleRepasController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{intervalleRepasController.next}" value="#{bundle.Next} #{intervalleRepasController.pagination.pageSize}" rendered="#{intervalleRepasController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{intervalleRepasController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListIntervalleRepasTitle_idRepas}"/>
                             </f:facet>
                             <h:outputText value="#{item.idRepas}"/>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListIntervalleRepasTitle_heureDebut}"/>
                             </f:facet>
                             <h:outputText value="#{item.heureDebut}">
                                 <f:convertDateTime pattern="HH:mm:ss" />
                             </h:outputText>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListIntervalleRepasTitle_heureFin}"/>
                             </f:facet>
                             <h:outputText value="#{item.heureFin}">
                                 <f:convertDateTime pattern="HH:mm:ss" />
                             </h:outputText>
-                        </p:column>
-                        <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{intervalleRepasController.prepareCreate}" update=":IntervalleRepasCreateForm" oncomplete="PF('IntervalleRepasCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":IntervalleRepasViewForm" oncomplete="PF('IntervalleRepasViewDialog').show()" disabled="#{empty intervalleRepasController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":IntervalleRepasEditForm" oncomplete="PF('IntervalleRepasEditDialog').show()" disabled="#{empty intervalleRepasController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{intervalleRepasController.destroy}" update=":growl,datalist" disabled="#{empty intervalleRepasController.selected}"/>
-                        </f:facet>
-                    </p:dataTable>
-                </p:panel>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{intervalleRepasController.prepareView}" value="#{bundle.ListIntervalleRepasViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{intervalleRepasController.prepareEdit}" value="#{bundle.ListIntervalleRepasEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{intervalleRepasController.destroy}" value="#{bundle.ListIntervalleRepasDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{intervalleRepasController.prepareCreate}" value="#{bundle.ListIntervalleRepasCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListIntervalleRepasIndexLink}"/>
             </h:form>
-
-            <ui:include src="Create.xhtml"/>
-            <ui:include src="Edit.xhtml"/>
-            <ui:include src="View.xhtml"/>
         </ui:define>
     </ui:composition>
 

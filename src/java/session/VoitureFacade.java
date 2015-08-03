@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sessionbeans;
+package session;
 
 import beans.Voiture;
 import javax.ejb.Stateless;

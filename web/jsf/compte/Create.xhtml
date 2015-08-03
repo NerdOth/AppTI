@@ -3,27 +3,35 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
-
-        <p:dialog id="CompteCreateDlg" widgetVar="CompteCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateCompteTitle}">
-            <h:form id="CompteCreateForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{compteController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateCompteLabel_idLogin}" for="idLogin" />
-                        <p:inputText id="idLogin" value="#{compteController.selected.idLogin}" title="#{bundle.CreateCompteTitle_idLogin}" required="true" requiredMessage="#{bundle.CreateCompteRequiredMessage_idLogin}"/>
-                        <p:outputLabel value="#{bundle.CreateCompteLabel_login}" for="login" />
-                        <p:inputText id="login" value="#{compteController.selected.login}" title="#{bundle.CreateCompteTitle_login}" />
-                        <p:outputLabel value="#{bundle.CreateCompteLabel_mp}" for="mp" />
-                        <p:inputTextarea rows="4" cols="30" id="mp" value="#{compteController.selected.mp}" title="#{bundle.CreateCompteTitle_mp}" />
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{compteController.create}" value="#{bundle.Save}" update="display,:CompteListForm:datalist,:growl" oncomplete="handleSubmit(args,'CompteCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="CompteCreateDialog.hide()"/>
-                </h:panelGroup>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateCompteTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateCompteLabel_idLogin}" for="idLogin" />
+                    <h:inputText id="idLogin" value="#{compteController.selected.idLogin}" title="#{bundle.CreateCompteTitle_idLogin}" required="true" requiredMessage="#{bundle.CreateCompteRequiredMessage_idLogin}"/>
+                    <h:outputLabel value="#{bundle.CreateCompteLabel_login}" for="login" />
+                    <h:inputText id="login" value="#{compteController.selected.login}" title="#{bundle.CreateCompteTitle_login}" />
+                    <h:outputLabel value="#{bundle.CreateCompteLabel_mp}" for="mp" />
+                    <h:inputTextarea rows="4" cols="30" id="mp" value="#{compteController.selected.mp}" title="#{bundle.CreateCompteTitle_mp}" />
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{compteController.create}" value="#{bundle.CreateCompteSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{compteController.prepareList}" value="#{bundle.CreateCompteShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateCompteIndexLink}"/>
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

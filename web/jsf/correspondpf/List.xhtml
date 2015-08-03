@@ -3,61 +3,59 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:composition template="/template.xhtml">
-
-
         <ui:define name="title">
             <h:outputText value="#{bundle.ListCorrespondpfTitle}"></h:outputText>
         </ui:define>
-
         <ui:define name="body">
-            <h:form id="CorrespondpfListForm">
-                <p:panel header="#{bundle.ListCorrespondpfTitle}">
-                    <p:dataTable id="datalist" value="#{correspondpfController.items}" var="item"
-                                 selectionMode="single" selection="#{correspondpfController.selected}"
-                                 paginator="true"
-                                 rowKey="#{item.pf}"
-                                 rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
-                                 >
-
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
-
-                        <p:column>
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListCorrespondpfEmpty}" rendered="#{correspondpfController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{correspondpfController.items.rowCount > 0}">
+                    <h:outputText value="#{correspondpfController.pagination.pageFirstItem + 1}..#{correspondpfController.pagination.pageLastItem + 1}/#{correspondpfController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{correspondpfController.previous}" value="#{bundle.Previous} #{correspondpfController.pagination.pageSize}" rendered="#{correspondpfController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{correspondpfController.next}" value="#{bundle.Next} #{correspondpfController.pagination.pageSize}" rendered="#{correspondpfController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{correspondpfController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListCorrespondpfTitle_idCorpf}"/>
                             </f:facet>
                             <h:outputText value="#{item.idCorpf}"/>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListCorrespondpfTitle_pf}"/>
                             </f:facet>
                             <h:outputText value="#{item.pf}"/>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListCorrespondpfTitle_taux}"/>
                             </f:facet>
                             <h:outputText value="#{item.taux}"/>
-                        </p:column>
-                        <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{correspondpfController.prepareCreate}" update=":CorrespondpfCreateForm" oncomplete="PF('CorrespondpfCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":CorrespondpfViewForm" oncomplete="PF('CorrespondpfViewDialog').show()" disabled="#{empty correspondpfController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":CorrespondpfEditForm" oncomplete="PF('CorrespondpfEditDialog').show()" disabled="#{empty correspondpfController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{correspondpfController.destroy}" update=":growl,datalist" disabled="#{empty correspondpfController.selected}"/>
-                        </f:facet>
-                    </p:dataTable>
-                </p:panel>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{correspondpfController.prepareView}" value="#{bundle.ListCorrespondpfViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{correspondpfController.prepareEdit}" value="#{bundle.ListCorrespondpfEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{correspondpfController.destroy}" value="#{bundle.ListCorrespondpfDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{correspondpfController.prepareCreate}" value="#{bundle.ListCorrespondpfCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListCorrespondpfIndexLink}"/>
             </h:form>
-
-            <ui:include src="Create.xhtml"/>
-            <ui:include src="Edit.xhtml"/>
-            <ui:include src="View.xhtml"/>
         </ui:define>
     </ui:composition>
 

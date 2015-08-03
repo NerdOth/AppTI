@@ -3,29 +3,37 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
-
-        <p:dialog id="CorrespondrepasCreateDlg" widgetVar="CorrespondrepasCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateCorrespondrepasTitle}">
-            <h:form id="CorrespondrepasCreateForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{correspondrepasController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateCorrespondrepasLabel_idCor}" for="idCor" />
-                        <p:inputText id="idCor" value="#{correspondrepasController.selected.idCor}" title="#{bundle.CreateCorrespondrepasTitle_idCor}" required="true" requiredMessage="#{bundle.CreateCorrespondrepasRequiredMessage_idCor}"/>
-                        <p:outputLabel value="#{bundle.CreateCorrespondrepasLabel_echelle}" for="echelle" />
-                        <p:inputText id="echelle" value="#{correspondrepasController.selected.echelle}" title="#{bundle.CreateCorrespondrepasTitle_echelle}" required="true" requiredMessage="#{bundle.CreateCorrespondrepasRequiredMessage_echelle}"/>
-                        <p:outputLabel value="#{bundle.CreateCorrespondrepasLabel_taux15}" for="taux15" />
-                        <p:inputText id="taux15" value="#{correspondrepasController.selected.taux15}" title="#{bundle.CreateCorrespondrepasTitle_taux15}" />
-                        <p:outputLabel value="#{bundle.CreateCorrespondrepasLabel_taux16}" for="taux16" />
-                        <p:inputText id="taux16" value="#{correspondrepasController.selected.taux16}" title="#{bundle.CreateCorrespondrepasTitle_taux16}" />
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{correspondrepasController.create}" value="#{bundle.Save}" update="display,:CorrespondrepasListForm:datalist,:growl" oncomplete="handleSubmit(args,'CorrespondrepasCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="CorrespondrepasCreateDialog.hide()"/>
-                </h:panelGroup>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateCorrespondrepasTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateCorrespondrepasLabel_idCor}" for="idCor" />
+                    <h:inputText id="idCor" value="#{correspondrepasController.selected.idCor}" title="#{bundle.CreateCorrespondrepasTitle_idCor}" required="true" requiredMessage="#{bundle.CreateCorrespondrepasRequiredMessage_idCor}"/>
+                    <h:outputLabel value="#{bundle.CreateCorrespondrepasLabel_echelle}" for="echelle" />
+                    <h:inputText id="echelle" value="#{correspondrepasController.selected.echelle}" title="#{bundle.CreateCorrespondrepasTitle_echelle}" required="true" requiredMessage="#{bundle.CreateCorrespondrepasRequiredMessage_echelle}"/>
+                    <h:outputLabel value="#{bundle.CreateCorrespondrepasLabel_taux15}" for="taux15" />
+                    <h:inputText id="taux15" value="#{correspondrepasController.selected.taux15}" title="#{bundle.CreateCorrespondrepasTitle_taux15}" />
+                    <h:outputLabel value="#{bundle.CreateCorrespondrepasLabel_taux16}" for="taux16" />
+                    <h:inputText id="taux16" value="#{correspondrepasController.selected.taux16}" title="#{bundle.CreateCorrespondrepasTitle_taux16}" />
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{correspondrepasController.create}" value="#{bundle.CreateCorrespondrepasSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{correspondrepasController.prepareList}" value="#{bundle.CreateCorrespondrepasShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateCorrespondrepasIndexLink}"/>
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

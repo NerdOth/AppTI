@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sessionbeans;
+package session;
 
-import beans.Correspondrepas;
+import beans.OrdreMission;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,7 +15,7 @@ import javax.persistence.PersistenceContext;
  * @author machd
  */
 @Stateless
-public class CorrespondrepasFacade extends AbstractFacade<Correspondrepas> {
+public class OrdreMissionFacade extends AbstractFacade<OrdreMission> {
     @PersistenceContext(unitName = "AppTI1.0PU")
     private EntityManager em;
 
@@ -24,8 +24,8 @@ public class CorrespondrepasFacade extends AbstractFacade<Correspondrepas> {
         return em;
     }
 
-    public CorrespondrepasFacade() {
-        super(Correspondrepas.class);
+    public OrdreMissionFacade() {
+        super(OrdreMission.class);
     }
     
 }

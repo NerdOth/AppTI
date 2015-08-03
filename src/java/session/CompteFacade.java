@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sessionbeans;
+package session;
 
-import beans.Personnel;
+import beans.Compte;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,7 +15,7 @@ import javax.persistence.PersistenceContext;
  * @author machd
  */
 @Stateless
-public class PersonnelFacade extends AbstractFacade<Personnel> {
+public class CompteFacade extends AbstractFacade<Compte> {
     @PersistenceContext(unitName = "AppTI1.0PU")
     private EntityManager em;
 
@@ -24,8 +24,8 @@ public class PersonnelFacade extends AbstractFacade<Personnel> {
         return em;
     }
 
-    public PersonnelFacade() {
-        super(Personnel.class);
+    public CompteFacade() {
+        super(Compte.class);
     }
     
 }

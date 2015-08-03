@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sessionbeans;
+package session;
 
-import beans.Correspondpf;
+import beans.JourFeries;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,7 +15,7 @@ import javax.persistence.PersistenceContext;
  * @author machd
  */
 @Stateless
-public class CorrespondpfFacade extends AbstractFacade<Correspondpf> {
+public class JourFeriesFacade extends AbstractFacade<JourFeries> {
     @PersistenceContext(unitName = "AppTI1.0PU")
     private EntityManager em;
 
@@ -24,8 +24,8 @@ public class CorrespondpfFacade extends AbstractFacade<Correspondpf> {
         return em;
     }
 
-    public CorrespondpfFacade() {
-        super(Correspondpf.class);
+    public JourFeriesFacade() {
+        super(JourFeries.class);
     }
     
 }

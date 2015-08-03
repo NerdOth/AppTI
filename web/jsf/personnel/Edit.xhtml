@@ -3,42 +3,48 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
-
-        <p:dialog id="PersonnelEditDlg" widgetVar="PersonnelEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditPersonnelTitle}">
-            <h:form id="PersonnelEditForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{personnelController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditPersonnelLabel_idPerson}" for="idPerson" />
-                        <p:inputText id="idPerson" value="#{personnelController.selected.idPerson}" title="#{bundle.EditPersonnelTitle_idPerson}" required="true" requiredMessage="#{bundle.EditPersonnelRequiredMessage_idPerson}"/>
-                        <p:outputLabel value="#{bundle.EditPersonnelLabel_nom}" for="nom" />
-                        <p:inputText id="nom" value="#{personnelController.selected.nom}" title="#{bundle.EditPersonnelTitle_nom}" required="true" requiredMessage="#{bundle.EditPersonnelRequiredMessage_nom}"/>
-                        <p:outputLabel value="#{bundle.EditPersonnelLabel_prenom}" for="prenom" />
-                        <p:inputText id="prenom" value="#{personnelController.selected.prenom}" title="#{bundle.EditPersonnelTitle_prenom}" />
-                        <p:outputLabel value="#{bundle.EditPersonnelLabel_matricule}" for="matricule" />
-                        <p:inputText id="matricule" value="#{personnelController.selected.matricule}" title="#{bundle.EditPersonnelTitle_matricule}" />
-                        <p:outputLabel value="#{bundle.EditPersonnelLabel_cin}" for="cin" />
-                        <p:inputText id="cin" value="#{personnelController.selected.cin}" title="#{bundle.EditPersonnelTitle_cin}" />
-                        <p:outputLabel value="#{bundle.EditPersonnelLabel_sexe}" for="sexe" />
-                        <p:inputText id="sexe" value="#{personnelController.selected.sexe}" title="#{bundle.EditPersonnelTitle_sexe}" />
-                        <p:outputLabel value="#{bundle.EditPersonnelLabel_residence}" for="residence" />
-                        <p:inputText id="residence" value="#{personnelController.selected.residence}" title="#{bundle.EditPersonnelTitle_residence}" />
-                        <p:outputLabel value="#{bundle.EditPersonnelLabel_echelle}" for="echelle" />
-                        <p:selectOneMenu id="echelle" value="#{personnelController.selected.echelle}" required="true" requiredMessage="#{bundle.EditPersonnelRequiredMessage_echelle}">
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{correspondrepasController.itemsAvailableSelectOne}"
-                                           var="echelleItem"
-                                           itemValue="#{echelleItem}"/>
-                        </p:selectOneMenu>
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{personnelController.update}" value="#{bundle.Save}" update="display,:PersonnelListForm:datalist,:growl" oncomplete="handleSubmit(args, 'PersonnelEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="PersonnelEditDialog.hide()"/>
-                </h:panelGroup>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditPersonnelTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditPersonnelLabel_idPerson}" for="idPerson" />
+                    <h:inputText id="idPerson" value="#{personnelController.selected.idPerson}" title="#{bundle.EditPersonnelTitle_idPerson}" required="true" requiredMessage="#{bundle.EditPersonnelRequiredMessage_idPerson}"/>
+                    <h:outputLabel value="#{bundle.EditPersonnelLabel_nom}" for="nom" />
+                    <h:inputText id="nom" value="#{personnelController.selected.nom}" title="#{bundle.EditPersonnelTitle_nom}" required="true" requiredMessage="#{bundle.EditPersonnelRequiredMessage_nom}"/>
+                    <h:outputLabel value="#{bundle.EditPersonnelLabel_prenom}" for="prenom" />
+                    <h:inputText id="prenom" value="#{personnelController.selected.prenom}" title="#{bundle.EditPersonnelTitle_prenom}" />
+                    <h:outputLabel value="#{bundle.EditPersonnelLabel_matricule}" for="matricule" />
+                    <h:inputText id="matricule" value="#{personnelController.selected.matricule}" title="#{bundle.EditPersonnelTitle_matricule}" />
+                    <h:outputLabel value="#{bundle.EditPersonnelLabel_cin}" for="cin" />
+                    <h:inputText id="cin" value="#{personnelController.selected.cin}" title="#{bundle.EditPersonnelTitle_cin}" />
+                    <h:outputLabel value="#{bundle.EditPersonnelLabel_sexe}" for="sexe" />
+                    <h:inputText id="sexe" value="#{personnelController.selected.sexe}" title="#{bundle.EditPersonnelTitle_sexe}" />
+                    <h:outputLabel value="#{bundle.EditPersonnelLabel_residence}" for="residence" />
+                    <h:inputText id="residence" value="#{personnelController.selected.residence}" title="#{bundle.EditPersonnelTitle_residence}" />
+                    <h:outputLabel value="#{bundle.EditPersonnelLabel_echelle}" for="echelle" />
+                    <h:selectOneMenu id="echelle" value="#{personnelController.selected.echelle}" title="#{bundle.EditPersonnelTitle_echelle}" required="true" requiredMessage="#{bundle.EditPersonnelRequiredMessage_echelle}">
+                        <f:selectItems value="#{correspondrepasController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{personnelController.update}" value="#{bundle.EditPersonnelSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditPersonnelViewLink}"/>
+                <br />
+                <h:commandLink action="#{personnelController.prepareList}" value="#{bundle.EditPersonnelShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditPersonnelIndexLink}" />
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

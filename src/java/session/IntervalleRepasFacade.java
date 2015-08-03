@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sessionbeans;
+package session;
 
-import beans.JourFeries;
+import beans.IntervalleRepas;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,7 +15,7 @@ import javax.persistence.PersistenceContext;
  * @author machd
  */
 @Stateless
-public class JourFeriesFacade extends AbstractFacade<JourFeries> {
+public class IntervalleRepasFacade extends AbstractFacade<IntervalleRepas> {
     @PersistenceContext(unitName = "AppTI1.0PU")
     private EntityManager em;
 
@@ -24,8 +24,8 @@ public class JourFeriesFacade extends AbstractFacade<JourFeries> {
         return em;
     }
 
-    public JourFeriesFacade() {
-        super(JourFeries.class);
+    public IntervalleRepasFacade() {
+        super(IntervalleRepas.class);
     }
     
 }
