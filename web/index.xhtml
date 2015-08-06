@@ -1,33 +1,232 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html" class="fixed sidebar-left-collapsed">
     <h:head>
-        <title>Facelet Title</title>
-        <h:outputStylesheet name="css/jsfcrud.css"/>
+        <!-- Basic -->
+        <meta charset="UTF-8"></meta>
+
+        <title>Table</title>
+
+        <!-- Mobile Metas -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" ></meta>
+
+        <!-- Web Fonts  -->
+        <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css"></link>
+
+        <!-- Vendor CSS -->
+        <link rel="stylesheet" href="resources/assets/vendor/bootstrap/css/bootstrap.css" ></link>
+        <link rel="stylesheet" href="resources/assets/vendor/font-awesome/css/font-awesome.css" ></link>
+        <link rel="stylesheet" href="resources/assets/vendor/magnific-popup/magnific-popup.css" ></link>
+        <link rel="stylesheet" href="resources/assets/vendor/bootstrap-datepicker/css/datepicker3.css" ></link>
+
+        <!-- Specific Page Vendor CSS -->
+        <link rel="stylesheet" href="resources/assets/vendor/select2/select2.css" ></link>
+        <link rel="stylesheet" href="resources/assets/vendor/jquery-datatables-bs3/assets/css/datatables.css" ></link>
+
+        <!-- Theme CSS -->
+        <link rel="stylesheet" href="resources/assets/stylesheets/theme.css" ></link>
+
+        <!-- Skin CSS -->
+        <link rel="stylesheet" href="resources/assets/stylesheets/skins/default.css" ></link>
+
+        <!-- Theme Custom CSS -->
+        <link rel="stylesheet" href="resources/assets/stylesheets/theme-custom.css"></link>
+
+        <!-- Head Libs -->
+        <script src="resources/assets/vendor/modernizr/modernizr.js"></script>
+
+
+
     </h:head>
+
+
     <h:body>
-        Hello from Facelets
-        <br />
-        <h:link outcome="welcomePrimefaces" value="Primefaces welcome page" />
-        <br />
-        <h:link outcome="/jsf/compte/List" value="Show All Compte Items"/>
-        <br />
-        <h:link outcome="/jsf/correspondpf/List" value="Show All Correspondpf Items"/>
-        <br />
-        <h:link outcome="/jsf/correspondrepas/List" value="Show All Correspondrepas Items"/>
-        <br />
-        <h:link outcome="/jsf/intervalleRepas/List" value="Show All IntervalleRepas Items"/>
-        <br />
-        <h:link outcome="/jsf/jourFeries/List" value="Show All JourFeries Items"/>
-        <br />
-        <h:link outcome="/jsf/ordreMission/List" value="Show All OrdreMission Items"/>
-        <br />
-        <h:link outcome="/jsf/personnel/List" value="Show All Personnel Items"/>
-        <br />
-        <h:link outcome="/jsf/trimestre/List" value="Show All Trimestre Items"/>
-        <br />
-        <h:link outcome="/jsf/voiture/List" value="Show All Voiture Items"/>
+
+        <section class="body">
+
+            <!-- start: header -->
+            <header class="header">
+                <div class="logo-container">
+                    <a href="../" class="logo">
+                        <img src="resources/assets/images/logo3.png" height="35" alt="IMANOR" />
+                    </a>
+                    <div class="visible-xs toggle-sidebar-left" data-toggle-class="sidebar-left-opened" data-target="html" data-fire-event="sidebar-left-opened">
+                        <i class="fa fa-bars" aria-label="Toggle sidebar"></i>
+                    </div>
+                </div>
+
+                <!-- start: search & user box -->
+                <div class="header-right">
+
+                    <form action="pages-search-results.html" class="search nav-form">
+                        <div class="input-group input-search">
+                            <input type="text" class="form-control" name="q" id="q" placeholder="Recherche..."></input>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
+                                </span>
+                        </div>
+                    </form>
+
+                    <span class="separator"></span>
+
+                    <div id="userbox" class="userbox">
+                        <a href="#" data-toggle="dropdown">
+                            <figure class="profile-picture">
+                                <img src="resources/assets/images/!logged-user.jpg" alt="Joseph Doe" class="img-circle" data-lock-picture="assets/images/!logged-user.jpg" />
+                            </figure>
+                            <div class="profile-info" data-lock-name="" data-lock-email="">
+                                <span class="name">Responsable RH</span>
+                                <span class="role">administrateur</span>
+                            </div>
+
+                            <i class="fa custom-caret"></i>
+                        </a>
+
+                        <div class="dropdown-menu">
+                            <ul class="list-unstyled">
+                                <li class="divider"></li>
+                                <li>
+                                    <a role="menuitem" tabindex="-1" href="pages-signin.html"><i class="fa fa-power-off"></i> Déconnexion</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- end: search & user box -->
+            </header>
+            <!-- end: header -->
+
+            <div class="inner-wrapper">
+                <!-- start: sidebar -->
+                <aside id="sidebar-left" class="sidebar-left">
+
+                    <div class="sidebar-header">
+                        <div class="sidebar-title">
+                            Menu
+                        </div>
+                        <div class="sidebar-toggle hidden-xs" data-toggle-class="sidebar-left-collapsed" data-target="html" data-fire-event="sidebar-left-toggle">
+                            <i class="fa fa-bars" aria-label="Toggle sidebar"></i>
+                        </div>
+                    </div>
+                    
+
+                    <div class="nano">
+                        <div class="nano-content">
+                            
+                            <nav id="menu" class="nav-main" role="navigation">
+                                <ul class="nav nav-main">
+                                    <li >
+                                        <a href="header2.html">
+                                            <i class="fa fa-home" aria-hidden="true"></i>
+                                            <span>Accueil</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="mailbox-folder.html">
+                                            <i class="fa fa-users" aria-hidden="true"></i>
+                                            <span>Gestion du personnel</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="table.html">
+                                            <i class="fa fa-files-o" aria-hidden="true"></i>
+                                            <span>Gestion des ordres de mission</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-parent">
+                                        <a>
+                                            <i class="fa fa-cogs" aria-hidden="true"></i>
+                                            <span>Paramétrage</span>
+                                        </a>
+                                        <ul class="nav nav-children">
+                                            <li>
+                                                <a href="pages-signup.html">
+                                                    Gestion du calendrier
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="pages-signin.html">
+                                                    Montant des repas
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="pages-recover-password.html">
+                                                    Horaires des repas
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="pages-lock-screen.html">
+                                                    Taux d’indemnités kilométriques
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </nav>
+
+                        </div>
+
+                    </div>
+
+                </aside>
+                <!-- end: sidebar -->
+
+
+
+
+                <section role="main" class="content-body">
+                    <header class="page-header">
+                        <h2>Page</h2>
+
+                        <div class="right-wrapper pull-right">
+                            <ol class="breadcrumbs">
+                                <li>
+                                    <a href="index.html">
+                                        <i class="fa fa-home"></i>
+                                    </a>
+                                </li>
+                                <li><span>Accueil</span></li>
+                                <li><span>Page</span></li>
+                            </ol>
+
+                            <a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fa fa-chevron-left"></i></a>
+                        </div>
+                    </header>
+
+
+
+
+
+                  
+                    <br />
+                    <h:link outcome="/jsf/compte/List" value="Show All Compte Items"/>
+                    <br />
+                    <h:link outcome="/jsf/correspondpf/List" value="Show All Correspondpf Items"/>
+                    <br />
+                    <h:link outcome="/jsf/correspondrepas/List" value="Show All Correspondrepas Items"/>
+                    <br />
+                    <h:link outcome="/jsf/intervalleRepas/List" value="Show All IntervalleRepas Items"/>
+                    <br />
+                    <h:link outcome="/jsf/jourFeries/List" value="Show All JourFeries Items"/>
+                    <br />
+                    <h:link outcome="/jsf/ordreMission/List" value="Show All OrdreMission Items"/>
+                    <br />
+                    <h:link outcome="/jsf/personnel/List" value="Show All Personnel Items"/>
+                    <br />
+                    <h:link outcome="/jsf/trimestre/List" value="Show All Trimestre Items"/>
+                    <br />
+                    <h:link outcome="/jsf/voiture/List" value="Show All Voiture Items"/>
+
+                </section>
+            </div>
+
+        </section>
+
+
+
+
+
     </h:body>
 
 
@@ -35,6 +234,32 @@
 
 
 
+
+    <script src="resources/assets/vendor/jquery/jquery.js"></script>
+    <script src="resources/assets/vendor/jquery-browser-mobile/jquery.browser.mobile.js"></script>
+    <script src="resources/assets/vendor/bootstrap/js/bootstrap.js"></script>
+    <script src="resources/assets/vendor/nanoscroller/nanoscroller.js"></script>
+    <script src="resources/assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script src="resources/assets/vendor/magnific-popup/magnific-popup.js"></script>
+    <script src="resources/assets/vendor/jquery-placeholder/jquery.placeholder.js"></script>
+
+    <!-- Specific Page Vendor -->
+    <script src="resources/assets/vendor/select2/select2.js"></script>
+    <script src="resources/assets/vendor/jquery-datatables/media/js/jquery.dataTables.js"></script>
+    <script src="resources/assets/vendor/jquery-datatables-bs3/assets/js/datatables.js"></script>
+
+    <!-- Theme Base, Components and Settings -->
+    <script src="resources/assets/javascripts/theme.js"></script>
+
+    <!-- Theme Custom -->
+    <script src="resources/assets/javascripts/theme.custom.js"></script>
+
+    <!-- Theme Initialization Files -->
+    <script src="resources/assets/javascripts/theme.init.js"></script>
+
+
+    <!-- Examples -->
+    <script src="resources/assets/javascripts/tables/examples.datatables.editable.js"></script>
 
 
 

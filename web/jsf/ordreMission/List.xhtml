@@ -3,17 +3,285 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core" class="fixed sidebar-left-collapsed"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
-    <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.ListOrdreMissionTitle}"></h:outputText>
-        </ui:define>
-        <ui:define name="body">
-            <h:form styleClass="jsfcrud_list_form">
-                <h:panelGroup id="messagePanel" layout="block">
-                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-                </h:panelGroup>
+    <h:head>
+        <!-- Basic -->
+        <meta charset="UTF-8"></meta>
+
+        <title>Table</title>
+
+        <!-- Mobile Metas -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" ></meta>
+
+        <!-- Web Fonts  -->
+        <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css"></link>
+
+        <!-- Vendor CSS -->
+        <link rel="stylesheet" href="../../resources/assets/vendor/bootstrap/css/bootstrap.css" ></link>
+        <link rel="stylesheet" href="../../resources/assets/vendor/font-awesome/css/font-awesome.css" ></link>
+        <link rel="stylesheet" href="../../resources/assets/vendor/magnific-popup/magnific-popup.css" ></link>
+        <link rel="stylesheet" href="../../resources/assets/vendor/bootstrap-datepicker/css/datepicker3.css" ></link>
+
+        <!-- Specific Page Vendor CSS -->
+        <link rel="stylesheet" href="../../resources/assets/vendor/select2/select2.css" ></link>
+        <link rel="stylesheet" href="../../resources/assets/vendor/jquery-datatables-bs3/assets/css/datatables.css" ></link>
+
+        <!-- Theme CSS -->
+        <link rel="stylesheet" href="../../resources/assets/stylesheets/theme.css" ></link>
+
+        <!-- Skin CSS -->
+        <link rel="stylesheet" href="../../resources/assets/stylesheets/skins/default.css" ></link>
+
+        <!-- Theme Custom CSS -->
+        <link rel="stylesheet" href="../../resources/assets/stylesheets/theme-custom.css"></link>
+
+        <!-- Head Libs -->
+        <script src="../../resources/assets/vendor/modernizr/modernizr.js"></script>
+
+
+
+    </h:head>
+
+
+
+    <body>
+
+
+
+        <section class="body">
+
+            <!-- start: header -->
+            <header class="header">
+                <div class="logo-container">
+                    <a href="../" class="logo">
+                        <img src="../../resources/assets/images/logo3.png" height="35" alt="IMANOR" ></img>
+                    </a>
+                    <div class="visible-xs toggle-sidebar-left" data-toggle-class="sidebar-left-opened" data-target="html" data-fire-event="sidebar-left-opened">
+                        <i class="fa fa-bars" aria-label="Toggle sidebar"></i>
+                    </div>
+                </div>
+
+                <!-- start: search & user box -->
+                <div class="header-right">
+
+                    <form action="pages-search-results.html" class="search nav-form">
+                        <div class="input-group input-search">
+                            <input type="text" class="form-control" name="q" id="q" placeholder="Recherche..."></input>
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
+                            </span>
+                        </div>
+                    </form>
+
+                    <span class="separator"></span>
+
+                    <div id="userbox" class="userbox">
+                        <a href="#" data-toggle="dropdown">
+                            <figure class="profile-picture">
+                                <img src="../../resources/assets/images/!logged-user.jpg" alt="Joseph Doe" class="img-circle" data-lock-picture="assets/images/!logged-user.jpg" />
+                            </figure>
+                            <div class="profile-info" data-lock-name="" data-lock-email="">
+                                <span class="name">Responsable RH</span>
+                                <span class="role">administrateur</span>
+                            </div>
+
+                            <i class="fa custom-caret"></i>
+                        </a>
+
+                        <div class="dropdown-menu">
+                            <ul class="list-unstyled">
+                                <li class="divider"></li>
+                                <li>
+                                    <a role="menuitem" tabindex="-1" href="pages-signin.html"><i class="fa fa-power-off"></i> Déconnexion</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- end: search & user box -->
+            </header>
+            <!-- end: header -->
+
+            <div class="inner-wrapper">
+                <!-- start: sidebar -->
+                <aside id="sidebar-left" class="sidebar-left">
+
+                    <div class="sidebar-header">
+                        <div class="sidebar-title">
+                            Menu
+                        </div>
+                        <div class="sidebar-toggle hidden-xs" data-toggle-class="sidebar-left-collapsed" data-target="html" data-fire-event="sidebar-left-toggle">
+                            <i class="fa fa-bars" aria-label="Toggle sidebar"></i>
+                        </div>
+                    </div>
+
+                    <div class="nano">
+                        <div class="nano-content">
+                            <nav id="menu" class="nav-main" role="navigation">
+                                <ul class="nav nav-main">
+                                    <li>
+                                        <a href="header2.html">
+                                            <i class="fa fa-home" aria-hidden="true"></i>
+                                            <span>Accueil</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="mailbox-folder.html">
+                                            <i class="fa fa-users" aria-hidden="true"></i>
+                                            <span>Gestion du personnel</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="table.html">
+                                            <i class="fa fa-files-o" aria-hidden="true"></i>
+                                            <span>Gestion des ordres de mission</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-parent">
+                                        <a>
+                                            <i class="fa fa-cogs" aria-hidden="true"></i>
+                                            <span>Paramétrage</span>
+                                        </a>
+                                        <ul class="nav nav-children">
+                                            <li>
+                                                <a href="pages-signup.html">
+                                                    Gestion du calendrier
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="pages-signin.html">
+                                                    Montant des repas
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="pages-recover-password.html">
+                                                    Horaires des repas
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="pages-lock-screen.html">
+                                                    Taux d’indemnités kilométriques
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>    
+                                </ul>
+                            </nav>
+
+                        </div>
+
+                    </div>
+
+                </aside>
+                <!-- end: sidebar -->
+
+
+
+
+
+
+                <section role="main" class="content-body">
+                    <header class="page-header">
+                        <h2>Page</h2>
+
+                        <div class="right-wrapper pull-right">
+                            <ol class="breadcrumbs">
+                                <li>
+                                    <a href="index.html">
+                                        <i class="fa fa-home"></i>
+                                    </a>
+                                </li>
+                                <li><span>Accueil</span></li>
+                                <li><span>Page</span></li>
+                            </ol>
+
+                            <a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fa fa-chevron-left"></i></a>
+                        </div>
+                    </header>
+
+                    <!-- start: page -->
+                    <!-- start: page -->
+                    <section class="panel">
+                        <header class="panel-heading">
+                            <div class="panel-actions">
+                                <a href="#" class="fa fa-caret-down"></a>
+
+                            </div>
+
+                            <h2 class="panel-title">Default</h2>
+                        </header>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="mb-md">
+                                        <button id="addToTable" class="btn btn-primary">Ajouter <i class="fa fa-plus"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <table class="table table-bordered table-striped mb-none" id="datatable-editable">
+                                <thead>
+                                    <tr>
+                                        <th>Matricule</th>
+                                        <th>Montant</th>
+                                        <th>Ville</th>
+                                        <th>Date d'aller</th>
+                                        <th>Heure d'aller</th>
+                                        <th>Objet de mission</th>
+                                        <th>Moyen de transport</th>
+                                        <th>Kilometres</th>
+                                        <th>Options</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <c:forEach items="#{ordreMissionController.all}" var="ordre" >
+                                        <tr class="gradeX">
+                                            <td>${ordre.person}</td>
+                                            <td>${ordre.montant}</td>
+                                            <td>${ordre.ville}</td>
+                                            <td> <h:outputText value="#{ordre.dateAller}">
+                                                    <f:convertDateTime pattern="MM/dd/yyyy" />
+                                                </h:outputText>
+                                            </td>
+                                            <td> <h:outputText value="#{ordre.heureAller}">
+                                                    <f:convertDateTime pattern="HH:mm:ss" />
+                                                </h:outputText>
+                                            </td>
+                                            <td>${ordre.objetMission}</td>
+                                            <td>${ordre.moyenTransport}</td>
+                                            <td>${ordre.kilometres}</td>
+
+
+
+
+                                            <td class="actions">
+                                                <a href="#" class="hidden on-editing save-row"><i class="fa fa-save"></i></a>
+                                                <a href="#" class="hidden on-editing cancel-row"><i class="fa fa-times"></i></a>
+                                                <a href="#" class="on-default edit-row"><i class="fa fa-pencil"></i></a>
+                                                <a href="#" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>
+                                            </td>
+                                        </tr>
+
+                                    </c:forEach>     
+
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                    <!-- end: page -->
+
+                    <!-- end: page -->
+                </section>
+            </div>
+
+
+
+
+            <h:form>
                 <h:outputText escape="false" value="#{bundle.ListOrdreMissionEmpty}" rendered="#{ordreMissionController.items.rowCount == 0}"/>
                 <h:panelGroup rendered="#{ordreMissionController.items.rowCount > 0}">
                     <h:outputText value="#{ordreMissionController.pagination.pageFirstItem + 1}..#{ordreMissionController.pagination.pageLastItem + 1}/#{ordreMissionController.pagination.itemsCount}"/>&nbsp;
@@ -108,7 +376,62 @@
                 <br />
                 <h:link outcome="/index" value="#{bundle.ListOrdreMissionIndexLink}"/>
             </h:form>
-        </ui:define>
-    </ui:composition>
+
+
+
+            <div id="dialog" class="modal-block mfp-hide">
+                <section class="panel">
+                    <header class="panel-heading">
+                        <h2 class="panel-title">Are you sure?</h2>
+                    </header>
+                    <div class="panel-body">
+                        <div class="modal-wrapper">
+                            <div class="modal-text">
+                                <p>Are you sure that you want to delete this row?</p>
+                            </div>
+                        </div>
+                    </div>
+                    <footer class="panel-footer">
+                        <div class="row">
+                            <div class="col-md-12 text-right">
+                                <button id="dialogConfirm" class="btn btn-primary">Confirm</button>
+                                <button id="dialogCancel" class="btn btn-default">Cancel</button>
+                            </div>
+                        </div>
+                    </footer>
+                </section>
+            </div>
+
+
+
+            <script src="../../resources/assets/vendor/jquery/jquery.js"></script>
+            <script src="../../resources/assets/vendor/jquery-browser-mobile/jquery.browser.mobile.js"></script>
+            <script src="../../resources/assets/vendor/bootstrap/js/bootstrap.js"></script>
+            <script src="../../resources/assets/vendor/nanoscroller/nanoscroller.js"></script>
+            <script src="../../resources/assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+            <script src="../../resources/assets/vendor/magnific-popup/magnific-popup.js"></script>
+            <script src="../../resources/assets/vendor/jquery-placeholder/jquery.placeholder.js"></script>
+
+            <!-- Specific Page Vendor -->
+            <script src="../../resources/assets/vendor/select2/select2.js"></script>
+            <script src="../../resources/assets/vendor/jquery-datatables/media/js/jquery.dataTables.js"></script>
+            <script src="../../resources/assets/vendor/jquery-datatables-bs3/assets/js/datatables.js"></script>
+
+            <!-- Theme Base, Components and Settings -->
+            <script src="../../resources/assets/javascripts/theme.js"></script>
+
+            <!-- Theme Custom -->
+            <script src="../../resources/assets/javascripts/theme.custom.js"></script>
+
+            <!-- Theme Initialization Files -->
+            <script src="../../resources/assets/javascripts/theme.init.js"></script>
+
+
+            <!-- Examples -->
+            <script src="../../resources/assets/javascripts/tables/examples.datatables.editable.js"></script>
+
+
+        </section>
+    </body>
 
 </html>

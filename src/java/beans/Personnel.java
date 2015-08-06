@@ -55,7 +55,7 @@ public class Personnel implements Serializable {
     @Column(name = "prenom")
     private String prenom;
     @Column(name = "matricule")
-    private Integer matricule;
+    private String matricule;
     @Size(max = 50)
     @Column(name = "cin")
     private String cin;
@@ -109,11 +109,11 @@ public class Personnel implements Serializable {
         this.prenom = prenom;
     }
 
-    public Integer getMatricule() {
+    public String getMatricule() {
         return matricule;
     }
 
-    public void setMatricule(Integer matricule) {
+    public void setMatricule(String matricule) {
         this.matricule = matricule;
     }
 
@@ -189,7 +189,7 @@ public class Personnel implements Serializable {
 
     @Override
     public String toString() {
-        return "beans.Personnel[ idPerson=" + idPerson + " ]";
+        return matricule;
     }
     
 }

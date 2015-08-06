@@ -42,7 +42,7 @@ public class Correspondpf implements Serializable {
     @Column(name = "pf")
     private Integer pf;
     @Column(name = "taux")
-    private Integer taux;
+    private Float taux;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "pf")
     private Collection<Voiture> voitureCollection;
 
@@ -69,11 +69,11 @@ public class Correspondpf implements Serializable {
         this.pf = pf;
     }
 
-    public Integer getTaux() {
+    public Float getTaux() {
         return taux;
     }
 
-    public void setTaux(Integer taux) {
+    public void setTaux(Float taux) {
         this.taux = taux;
     }
 

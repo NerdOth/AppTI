@@ -6,6 +6,7 @@ import managed.util.PaginationHelper;
 import session.OrdreMissionFacade;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -22,6 +23,7 @@ import javax.faces.model.SelectItem;
 @SessionScoped
 public class OrdreMissionController implements Serializable {
 
+    private List all;
     private OrdreMission current;
     private DataModel items = null;
     @EJB
@@ -160,6 +162,11 @@ public class OrdreMissionController implements Serializable {
         return items;
     }
 
+    public List<OrdreMission> getAll() {
+        all=ejbFacade.findAll();
+        return all;
+    }
+    
     private void recreateModel() {
         items = null;
     }
