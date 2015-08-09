@@ -11,6 +11,8 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -33,16 +35,19 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Correspondpf.findByPf", query = "SELECT c FROM Correspondpf c WHERE c.pf = :pf"),
     @NamedQuery(name = "Correspondpf.findByTaux", query = "SELECT c FROM Correspondpf c WHERE c.taux = :taux")})
 public class Correspondpf implements Serializable {
-    private static final long serialVersionUID = 1L;
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "idCorpf")
-    private Integer idCorpf;
+    private int idCorpf;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "taux")
+    private Double taux;
+    private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
     @Column(name = "pf")
     private Integer pf;
-    @Column(name = "taux")
-    private Float taux;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "pf")
     private Collection<Voiture> voitureCollection;
 
@@ -53,13 +58,6 @@ public class Correspondpf implements Serializable {
         this.pf = pf;
     }
 
-    public Integer getIdCorpf() {
-        return idCorpf;
-    }
-
-    public void setIdCorpf(Integer idCorpf) {
-        this.idCorpf = idCorpf;
-    }
 
     public Integer getPf() {
         return pf;
@@ -69,13 +67,6 @@ public class Correspondpf implements Serializable {
         this.pf = pf;
     }
 
-    public Float getTaux() {
-        return taux;
-    }
-
-    public void setTaux(Float taux) {
-        this.taux = taux;
-    }
 
     @XmlTransient
     public Collection<Voiture> getVoitureCollection() {
@@ -109,6 +100,22 @@ public class Correspondpf implements Serializable {
     @Override
     public String toString() {
         return "beans.Correspondpf[ pf=" + pf + " ]";
+    }
+
+    public int getIdCorpf() {
+        return idCorpf;
+    }
+
+    public void setIdCorpf(int idCorpf) {
+        this.idCorpf = idCorpf;
+    }
+
+    public Double getTaux() {
+        return taux;
+    }
+
+    public void setTaux(Double taux) {
+        this.taux = taux;
     }
     
 }

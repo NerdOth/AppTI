@@ -12,6 +12,8 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -37,8 +39,11 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Trimestre.findByDateFin", query = "SELECT t FROM Trimestre t WHERE t.dateFin = :dateFin"),
     @NamedQuery(name = "Trimestre.findByEtat", query = "SELECT t FROM Trimestre t WHERE t.etat = :etat")})
 public class Trimestre implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "idTrim")
@@ -126,5 +131,5 @@ public class Trimestre implements Serializable {
     public String toString() {
         return "beans.Trimestre[ idTrim=" + idTrim + " ]";
     }
-    
+
 }

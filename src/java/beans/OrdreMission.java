@@ -10,6 +10,8 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -41,8 +43,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "OrdreMission.findByKilometres", query = "SELECT o FROM OrdreMission o WHERE o.kilometres = :kilometres"),
     @NamedQuery(name = "OrdreMission.findByNum", query = "SELECT o FROM OrdreMission o WHERE o.num = :num")})
 public class OrdreMission implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @NotNull
     @Column(name = "idOrdre")
@@ -62,8 +66,9 @@ public class OrdreMission implements Serializable {
     @Size(max = 150)
     @Column(name = "objetMission")
     private String objetMission;
+    @Size(max = 100)
     @Column(name = "moyenTransport")
-    private Integer moyenTransport;
+    private String moyenTransport;
     @Column(name = "kilometres")
     private Float kilometres;
     @Size(max = 50)
@@ -77,6 +82,20 @@ public class OrdreMission implements Serializable {
     private Trimestre trim1;
 
     public OrdreMission() {
+    }
+
+    public OrdreMission(Integer idordre,Float montant, String ville, Date dateAller, Date heureAller, String objetMission, String moyenTransport, Float kilometres, String num, Personnel person, Trimestre trim1) {
+        this.idOrdre=idordre;
+        this.montant = montant;
+        this.ville = ville;
+        this.dateAller = dateAller;
+        this.heureAller = heureAller;
+        this.objetMission = objetMission;
+        this.moyenTransport = moyenTransport;
+        this.kilometres = kilometres;
+        this.num = num;
+        this.person = person;
+        this.trim1 = trim1;
     }
 
     public OrdreMission(Integer idOrdre) {
@@ -131,11 +150,11 @@ public class OrdreMission implements Serializable {
         this.objetMission = objetMission;
     }
 
-    public Integer getMoyenTransport() {
+    public String getMoyenTransport() {
         return moyenTransport;
     }
 
-    public void setMoyenTransport(Integer moyenTransport) {
+    public void setMoyenTransport(String moyenTransport) {
         this.moyenTransport = moyenTransport;
     }
 
@@ -195,5 +214,5 @@ public class OrdreMission implements Serializable {
     public String toString() {
         return "beans.OrdreMission[ idOrdre=" + idOrdre + " ]";
     }
-    
+
 }

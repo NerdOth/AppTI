@@ -23,6 +23,11 @@ public class OrdreMissionFacade extends AbstractFacade<OrdreMission> {
     protected EntityManager getEntityManager() {
         return em;
     }
+    
+    public void Create(OrdreMission o){
+        em.persist(o);
+    }
+
 
     public OrdreMissionFacade() {
         super(OrdreMission.class);

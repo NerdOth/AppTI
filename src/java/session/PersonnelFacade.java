@@ -9,6 +9,7 @@ import beans.Personnel;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -24,6 +25,15 @@ public class PersonnelFacade extends AbstractFacade<Personnel> {
         return em;
     }
 
+    
+    public Personnel FindByMatricule(String matricule){
+        Query qr=em.createNamedQuery("Personnel.findByMatricule");
+        qr.setParameter("matricule", matricule);
+        return (Personnel)qr.getSingleResult();
+    }
+            
+            
+            
     public PersonnelFacade() {
         super(Personnel.class);
     }

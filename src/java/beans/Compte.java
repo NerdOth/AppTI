@@ -9,6 +9,8 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
@@ -30,8 +32,13 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Compte.findByIdLogin", query = "SELECT c FROM Compte c WHERE c.idLogin = :idLogin"),
     @NamedQuery(name = "Compte.findByLogin", query = "SELECT c FROM Compte c WHERE c.login = :login")})
 public class Compte implements Serializable {
+    @Lob
+    @Column(name = "mp")
+    private byte[] mp;
     private static final long serialVersionUID = 1L;
     @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "idLogin")
@@ -39,9 +46,6 @@ public class Compte implements Serializable {
     @Size(max = 50)
     @Column(name = "login")
     private String login;
-    @Lob
-    @Column(name = "mp")
-    private byte[] mp;
 
     public Compte() {
     }
@@ -66,13 +70,6 @@ public class Compte implements Serializable {
         this.login = login;
     }
 
-    public byte[] getMp() {
-        return mp;
-    }
-
-    public void setMp(byte[] mp) {
-        this.mp = mp;
-    }
 
     @Override
     public int hashCode() {
@@ -97,6 +94,14 @@ public class Compte implements Serializable {
     @Override
     public String toString() {
         return "beans.Compte[ idLogin=" + idLogin + " ]";
+    }
+
+    public byte[] getMp() {
+        return mp;
+    }
+
+    public void setMp(byte[] mp) {
+        this.mp = mp;
     }
     
 }

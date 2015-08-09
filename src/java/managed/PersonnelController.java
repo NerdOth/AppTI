@@ -6,6 +6,7 @@ import managed.util.PaginationHelper;
 import session.PersonnelFacade;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -22,6 +23,7 @@ import javax.faces.model.SelectItem;
 @SessionScoped
 public class PersonnelController implements Serializable {
 
+    private List all;
     private Personnel current;
     private DataModel items = null;
     @EJB
@@ -29,6 +31,14 @@ public class PersonnelController implements Serializable {
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
+    
+    
+    public List<Personnel> getAll(){
+        all = ejbFacade.findAll();
+        return all;
+        
+    }
+    
     public PersonnelController() {
     }
 
