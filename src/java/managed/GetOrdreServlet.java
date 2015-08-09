@@ -10,6 +10,7 @@ import beans.Personnel;
 import beans.Trimestre;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
@@ -22,6 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.primefaces.json.JSONException;
 import org.primefaces.json.JSONObject;
+import static org.primefaces.json.JSONObject.NULL;
 
 /**
  *
@@ -95,6 +97,12 @@ public class GetOrdreServlet extends HttpServlet {
                 }
                 String[] num = {"0", "1", "2", "3", "4", "5", "6", "7", "8"};
 
+                Float mont = null;
+                Float kilo = null;
+
+                Date day = null;
+                Date hour = null;
+
                 try {
                     object = new JSONObject(output);
 
@@ -111,14 +119,22 @@ public class GetOrdreServlet extends HttpServlet {
                     Logger.getLogger(GetOrdreServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
+                if ((!"".equals(o[7])) || (!"".equals(o[1]))) {
+                    kilo = Float.parseFloat(o[7]);
+                    mont = Float.parseFloat(o[1]);
+
+                }
+
+                if ((!"".equals(o[3])) || (!"".equals(o[4]))) {
+                    day = (Date) dateFormatter.parse(o[3]);
+                    hour = (Date) hourFormatter.parse(o[4]);
+                }
+
                 pers = ejbPers.FindByMatricule(o[0]);
                 trim = ejbTrim.find(0);
 
-                Float mont = Float.parseFloat(o[1]);
-                Float kilo = Float.parseFloat(o[7]);
-
                 if ("disabled".equals(attr)) {
-                    current = new OrdreMission(1, mont, o[2], dateFormatter.parse(o[3]), hourFormatter.parse(o[4]), o[5], o[6], kilo, null, pers, trim);
+                    current = new OrdreMission(1, mont, o[2], day, hour, o[5], o[6], kilo, null, pers, trim);
 
                     ejbFacade.Create(current);
 
@@ -131,8 +147,8 @@ public class GetOrdreServlet extends HttpServlet {
                     }
 
                     current.setMontant(mont);
-                    current.setDateAller(dateFormatter.parse(o[3]));
-                    current.setHeureAller(hourFormatter.parse(o[4]));
+                    current.setDateAller(day);
+                    current.setHeureAller(hour);
                     current.setVille(o[2]);
                     current.setObjetMission(o[5]);
                     current.setMoyenTransport(o[6]);

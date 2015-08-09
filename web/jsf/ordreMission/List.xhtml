@@ -507,8 +507,8 @@
                             $row.find('td:nth-child(4)').html('<input type="text" id="date"  class="form-control" value="' + data[3] + '"/>');
                             $row.find('td:nth-child(5)').html('<input type="text" class="form-control input-block" value="' + data[4] + '"/>');
                             $row.find('td:nth-child(6)').html('<input type="text" class="form-control input-block" value="' + data[5] + '"/>');
-                            $row.find('td:nth-child(7)').html('<select  class="form-control populate"><option value="Voiture personnelle">Voiture personnelle</option><option value="Voiture de service">Voiture de service</option></select>');
-                            $row.find('td:nth-child(8)').html('<input type="text" class="form-control input-block" value="' + data[7] + '"/>');
+                            $row.find('td:nth-child(7)').html('<select id="select" class="form-control populate"><option value="Voiture de service">Voiture de service</option><option value="Voiture personnelle">Voiture personnelle</option></select>');
+                            $row.find('td:nth-child(8)').html('<input id="kilo" type="text" disabled="true" class="form-control input-block" value="' + data[7] + '"/>');
                             _self.rowSetActionsEditing($row);
 
 
@@ -636,6 +636,17 @@
                     });
                 }).apply(this, [jQuery]);
 
+            </script>
+            
+            <script>
+                $('#select').change(function() {
+                    if($('#select option:selected').val() === "Voiture personnelle") {
+                        $('input #kilo').attr("disabled")="true";
+                    }
+                    else {
+                    
+                    }
+                });
             </script>
 
 
