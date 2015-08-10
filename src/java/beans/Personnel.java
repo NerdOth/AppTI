@@ -42,6 +42,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Personnel.findBySexe", query = "SELECT p FROM Personnel p WHERE p.sexe = :sexe"),
     @NamedQuery(name = "Personnel.findByResidence", query = "SELECT p FROM Personnel p WHERE p.residence = :residence")})
 public class Personnel implements Serializable {
+    @Size(max = 500)
+    @Column(name = "grade")
+    private String grade;
     private static final long serialVersionUID = 1L;
     @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -194,6 +197,14 @@ public class Personnel implements Serializable {
     @Override
     public String toString() {
         return matricule;
+    }
+
+    public String getGrade() {
+        return grade;
+    }
+
+    public void setGrade(String grade) {
+        this.grade = grade;
     }
     
 }

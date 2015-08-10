@@ -100,8 +100,15 @@ public class GetOrdreServlet extends HttpServlet {
                 Float mont = null;
                 Float kilo = null;
 
-                Date day = null;
-                Date hour = null;
+                java.util.Date day = new java.util.Date();
+                
+                //java.sql.Date sqlday = new java.sql.Date(day.getTime());
+                
+                java.util.Date hour = new java.util.Date();
+                
+                //java.sql.Date sqlhour = new java.sql.Date(hour.getTime());
+                
+                
 
                 try {
                     object = new JSONObject(output);
@@ -119,17 +126,22 @@ public class GetOrdreServlet extends HttpServlet {
                     Logger.getLogger(GetOrdreServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
-                if ((!"".equals(o[7])) || (!"".equals(o[1]))) {
+                if (!"".equals(o[7])) {
                     kilo = Float.parseFloat(o[7]);
+
+                }
+
+                if (!"".equals(o[1])) {
                     mont = Float.parseFloat(o[1]);
 
                 }
 
                 if ((!"".equals(o[3])) || (!"".equals(o[4]))) {
-                    day = (Date) dateFormatter.parse(o[3]);
-                    hour = (Date) hourFormatter.parse(o[4]);
+                    day = dateFormatter.parse(o[3]);
+                    hour =  hourFormatter.parse(o[4]);
                 }
 
+                System.out.println("" + mont + kilo + day + hour);
                 pers = ejbPers.FindByMatricule(o[0]);
                 trim = ejbTrim.find(0);
 
