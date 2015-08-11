@@ -263,7 +263,7 @@
                                             <td>${ordre.objetMission}</td>
                                             <td>${ordre.moyenTransport}</td>
                                             <td>${ordre.kilometres}</td>
-                                            <td><c:if test="#{ordre.kilometres!=null}">
+                                            <td id="indkilo" ordre="${ordre.person.voiture.pf.taux}" ><c:if test="#{ordre.kilometres!=null}">
                                                     
 
                                                     ${ordre.person.voiture.pf.taux*ordre.kilometres*2}
@@ -686,7 +686,11 @@
 
                     var val = $("#kilo").val();
 
-                    document.getElementById("indem").setAttribute("value", val * 1.2);
+                    var pf = document.getElementById("indkilo").getAttribute("ordre");
+                    
+                   
+                    
+                    document.getElementById("indem").setAttribute("value", val * pf * 2);
 
                 }
                 ;

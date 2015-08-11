@@ -1,5 +1,3 @@
-
-
  //
  // Colour customisation
  //
@@ -31,7 +29,7 @@ $table-paging-button-hover: #111;
 //
 // Functions / mixins
 //
-@function tint( $color, $percent ) {
+@function tint( $color , $percent ) {
   @return mix(white, $color, $percent);
 }
 
