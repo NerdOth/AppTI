@@ -9,8 +9,6 @@ import beans.OrdreMission;
 import beans.Personnel;
 import beans.Trimestre;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
@@ -23,7 +21,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.primefaces.json.JSONException;
 import org.primefaces.json.JSONObject;
-import static org.primefaces.json.JSONObject.NULL;
 
 /**
  *
