@@ -235,10 +235,14 @@
                                         <th>Heure d'aller</th>
                                         <th>Objet de mission</th>
                                         <th>Moyen de transport</th>
-                                        <th>Kilometres</th>
+                                        <th>Kilomètres</th>
+                                        <th>Indemnité kilom</th>
+
 
 
                                         <th>Options</th>
+
+                                        <!--                                        <th>Fichiers</th>-->
 
                                     </tr>
                                 </thead>
@@ -259,6 +263,12 @@
                                             <td>${ordre.objetMission}</td>
                                             <td>${ordre.moyenTransport}</td>
                                             <td>${ordre.kilometres}</td>
+                                            <td><c:if test="#{ordre.kilometres!=null}">
+                                                    
+
+                                                    ${ordre.person.voiture.pf.taux*ordre.kilometres*2}
+                                                </c:if>
+                                            </td>
 
 
 
@@ -271,6 +281,13 @@
                                                 <a href="#" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>
 
                                             </td>
+
+                                            <!--                                            <td class="pdf">
+                                            
+                                                                                            <a href="#" id="edit" ordre="${ordre.idOrdre}" ><i class="fa fa-file-pdf-o"></i></a>
+                                                                                            <a href="#" ><i class="fa fa-file-pdf-o"></i></a>
+                                            
+                                                                                        </td>-->
                                         </tr>
 
                                     </c:forEach>     
@@ -343,17 +360,19 @@
             <!--            <script src="../../resources/assets/javascripts/tables/examples.datatables.editable.js"></script>-->
             <script src="../../resources/assets/javascripts/forms/examples.advanced.form.js" ></script>
 
+            <!--  lib jspdf -->
 
+            <script src="../../resources/jspdf/FileSaver.js" ></script>
+            <script src="../../resources/jspdf/jspdf.js" ></script>
+            <script src="../../resources/jspdf/jspdf.plugin.addimage.js" ></script>
+            <script src="../../resources/jspdf/jspdf.plugin.ie_below_9_shim.js" ></script>
+            <script src="../../resources/jspdf/jspdf.plugin.sillysvgrenderer.js" ></script>
+            <script src="../../resources/jspdf/jspdf.plugin.split_text_to_size.js" ></script>
+            <script src="../../resources/jspdf/jspdf.plugin.standard_fonts_metrics.js" ></script>
 
 
             <script>
-                /*
-                 Name: 			Tables / Editable - Examples
-                 Written by: 	Okler Themes - (http://www.okler.net)
-                 Theme Version: 	1.3.0
-                 */
-
-                /* global myJSONObject */
+             
 
                 (function ($) {
 
@@ -387,6 +406,7 @@
                         build: function () {
                             this.datatable = this.$table.DataTable({
                                 aoColumns: [
+                                    null,
                                     null,
                                     null,
                                     null,
@@ -460,7 +480,11 @@
                         // ==========================================================================================
                         rowAdd: function () {
                             this.$addButton.attr({'disabled': 'disabled'});
+                            
+                           
+                            
                             var actions,
+                                    
                                     data,
                                     $row;
                             actions = [
@@ -469,7 +493,11 @@
                                 '<a href="#" class="on-default edit-row"><i class="fa fa-pencil"></i></a>',
                                 '<a href="#" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>'
                             ].join(' ');
-                            data = this.datatable.row.add(['', '', '', '', '', '', '', '', actions]);
+//
+//                    
+
+
+                            data = this.datatable.row.add(['', '', '', '', '', '', '', '', '', actions]);
                             $row = this.datatable.row(data[0]).nodes().to$();
                             $row
                                     .addClass('adding')
@@ -504,24 +532,18 @@
                             $row.find('td:nth-child(1)').html('<select class="form-control populate"><c:forEach var="matr" items="#{personnelController.all}" ><option value="${matr.matricule}">${matr.matricule}</option></c:forEach></select>');
                             $row.find('td:nth-child(2)').html('<input type="text" class="form-control input-block" value="' + data[1] + '"/>');
                             $row.find('td:nth-child(3)').html('<input type="text" class="form-control input-block" value="' + data[2] + '"/>');
-                            $row.find('td:nth-child(4)').html('<input type="text" id="date"  class="form-control" value="' + data[3] + '"/>');
+                            $row.find('td:nth-child(4)').html('<input type="text" id="date" class="form-control" value="' + data[3] + '"/>');
                             $row.find('td:nth-child(5)').html('<input type="text" class="form-control input-block" value="' + data[4] + '"/>');
                             $row.find('td:nth-child(6)').html('<input type="text" class="form-control input-block" value="' + data[5] + '"/>');
                             $row.find('td:nth-child(7)').html('<select id="select" onchange="selchange();" class="form-control populate"><option value="Voiture de service">Voiture de service</option><option  value="Voiture personnelle">Voiture personnelle</option></select>');
-                            $row.find('td:nth-child(8)').html('<input id="kilo" type="text" disabled="true" class="form-control input-block" value="' + data[7] + '"/>');
+                            $row.find('td:nth-child(8)').html('<input id="kilo" type="text" disabled="true" onchange="calc();" class="form-control input-block" value="' + data[7] + '"/>');
+                            $row.find('td:nth-child(9)').html('<input type="text" id="indem" disabled="true" class="form-control input-block" />');
+
                             _self.rowSetActionsEditing($row);
 
 
 
-//            $row.children('td').each(function (i) {
-//                var $this = $(this);
-//
-//                if ($this.hasClass('actions')) {
-//                    _self.rowSetActionsEditing($row);
-//                } else {
-//                    $this.html('<input type="text" class="form-control input-block" value="' + data[i] + '"/>');
-//                }
-//            });
+//    
                         },
                         rowSave: function ($row) {
                             var attr = document.getElementById("addToTable").getAttribute("disabled");
@@ -639,22 +661,39 @@
             </script>
 
             <script>
-             function selchange(){
-               if( $("#select").val()==='Voiture personnelle'){
-                   document.getElementById("kilo").removeAttribute("disabled");
-                   
-               }
-               else {
-                   if( $("#select").val()==='Voiture de service'){
-                   document.getElementById("kilo").setAttribute("disabled", "true");
-                   
-               }
-                   
-               }
-                
-            };
+                function selchange() {
+                    if ($("#select").val() === 'Voiture personnelle') {
+                        document.getElementById("kilo").removeAttribute("disabled");
+                        document.getElementById("indem").removeAttribute("disabled");
+
+
+                    }
+                    else {
+                        if ($("#select").val() === 'Voiture de service') {
+                            document.getElementById("kilo").setAttribute("disabled", "true");
+                            document.getElementById("indem").setAttribute("disabled", "true");
+
+
+                        }
+
+                    }
+
+                }
+                ;
+
+                function calc() {
+//                    var val =document.getElementById("kilo").getAttribute("value");
+
+                    var val = $("#kilo").val();
+
+                    document.getElementById("indem").setAttribute("value", val * 1.2);
+
+                }
+                ;
 
             </script>
+
+
 
 
 

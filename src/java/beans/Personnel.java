@@ -19,6 +19,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -74,12 +75,15 @@ public class Personnel implements Serializable {
     private String residence;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "person")
     private Collection<OrdreMission> ordreMissionCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "personne")
-    private Collection<Voiture> voitureCollection;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "personne")
+    private Voiture voiture;
     @JoinColumn(name = "echelle", referencedColumnName = "echelle")
     @ManyToOne(optional = false)
     private Correspondrepas echelle;
 
+    
+  
+    
     public Personnel() {
     }
 
@@ -158,12 +162,14 @@ public class Personnel implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Voiture> getVoitureCollection() {
-        return voitureCollection;
+    public Voiture getVoiture() {
+        return voiture;
     }
 
-    public void setVoitureCollection(Collection<Voiture> voitureCollection) {
-        this.voitureCollection = voitureCollection;
+    
+    
+    public void setVoiture(Voiture voiture) {
+        this.voiture = voiture;
     }
 
     public Correspondrepas getEchelle() {
