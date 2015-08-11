@@ -1,68 +1,126 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/jsf/header.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
 
-    <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.ListCorrespondrepasTitle}"></h:outputText>
-        </ui:define>
-        <ui:define name="body">
-            <h:form styleClass="jsfcrud_list_form">
-                <h:panelGroup id="messagePanel" layout="block">
-                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-                </h:panelGroup>
-                <h:outputText escape="false" value="#{bundle.ListCorrespondrepasEmpty}" rendered="#{correspondrepasController.items.rowCount == 0}"/>
-                <h:panelGroup rendered="#{correspondrepasController.items.rowCount > 0}">
-                    <h:outputText value="#{correspondrepasController.pagination.pageFirstItem + 1}..#{correspondrepasController.pagination.pageLastItem + 1}/#{correspondrepasController.pagination.itemsCount}"/>&nbsp;
-                    <h:commandLink action="#{correspondrepasController.previous}" value="#{bundle.Previous} #{correspondrepasController.pagination.pageSize}" rendered="#{correspondrepasController.pagination.hasPreviousPage}"/>&nbsp;
-                    <h:commandLink action="#{correspondrepasController.next}" value="#{bundle.Next} #{correspondrepasController.pagination.pageSize}" rendered="#{correspondrepasController.pagination.hasNextPage}"/>&nbsp;
-                    <h:dataTable value="#{correspondrepasController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListCorrespondrepasTitle_idCor}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.idCor}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListCorrespondrepasTitle_echelle}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.echelle}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListCorrespondrepasTitle_taux15}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.taux15}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListCorrespondrepasTitle_taux16}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.taux16}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="&nbsp;"/>
-                            </f:facet>
-                            <h:commandLink action="#{correspondrepasController.prepareView}" value="#{bundle.ListCorrespondrepasViewLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{correspondrepasController.prepareEdit}" value="#{bundle.ListCorrespondrepasEditLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{correspondrepasController.destroy}" value="#{bundle.ListCorrespondrepasDestroyLink}"/>
-                        </h:column>
-                    </h:dataTable>
-                </h:panelGroup>
-                <br />
-                <h:commandLink action="#{correspondrepasController.prepareCreate}" value="#{bundle.ListCorrespondrepasCreateLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.ListCorrespondrepasIndexLink}"/>
-            </h:form>
-        </ui:define>
-    </ui:composition>
+    <ui:define name="Titre">
+        Montant repas
+    </ui:define>
+    <ui:define name="Page">
+        Montant des repas
+    </ui:define>
+    <ui:define name="Page1">
+        Paramétrage
+    </ui:define>
+    <ui:define name="Page2">
+        Montant repas
+    </ui:define>
 
-</html>
+    <ui:define name="body">
+
+         <section class="panel panel-featured panel-featured-primary">
+                        <header class="panel-heading">
+                            <div class="panel-actions">
+                                <a href="#" class="fa fa-caret-down"></a>
+
+                            </div>
+
+                            <h2 class="panel-title">Montant d'un repas pour chaque échelle</h2>
+                        </header>
+                        <div class="panel-body">
+
+
+                            <h:form>
+                                <h:dataTable value="#{correspondrepasController.items}" class="table table-striped mb-none" id="datatable-editable" var="item" >
+
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListCorrespondrepasTitle_echelle}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.echelle}"/>
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Taux en Dh pendant les 15 premiers jours"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.taux15}"/>
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Taux en Dh à compter du 16ème jour dans la même localité"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.taux16}"/>
+                                    </h:column>
+                                    <h:column>
+                                        <f:passThroughAttribute name="class" value="actions" />
+
+                                        <f:facet name="header">
+                                            <h:outputText value="Actions"/>
+                                        </f:facet>
+                                        <b> </b>
+                                        <h:commandLink  class="on-default edit-row" 
+                                                        action="#{correspondrepasController.prepareEdit}" >
+                                            <i class="fa fa-pencil"></i> 
+                                        </h:commandLink> <b> </b>
+                                        <h:commandLink type="button" class="on-default remove-row" 
+                                                       action="#{correspondrepasController.destroy}"
+                                                       onclick="if (confirm('Vous voulez vraiment supprimer cette ligne du tableau ?'))
+                                                 return true;
+                                             else
+                                                 return false;">
+                                            <i class="fa fa-trash-o"></i> 
+                                        </h:commandLink>
+                                    </h:column>
+                                </h:dataTable>
+                            </h:form> 
+                        </div>
+                    </section>
+                    <!-- end: page -->
+                    <h:form   class="form-horizontal">
+                        <section class="panel  panel-featured panel-featured-primary">
+                            <header class="panel-heading">
+                                <div class="panel-actions">
+                                    <a href="#" class="fa fa-caret-down"></a>
+
+                                </div>
+
+                                <h2 class="panel-title">Ajouter un montant</h2>
+
+                            </header>
+                            <div class="panel-body">
+                                <div class="validation-message">
+                                    <ul></ul>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-5 control-label">Echelle: <span class="required">*</span></label>
+                                    <div class="col-sm-4">
+                                        <h:inputText class="form-control" id="echelle" value="#{correspondrepasController.selected.echelle}" title="#{bundle.CreateCorrespondrepasRequiredMessage_echelle}" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-5 control-label">Taux en Dh pendant les 15 premiers jours: <span class="required">*</span></label>
+                                    <div class="col-sm-4">
+                                        <h:inputText class="form-control" id="taux15" value="#{correspondrepasController.selected.taux15}" title="#{bundle.CreateCorrespondrepasTitle_taux15}" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-5 control-label">Taux en Dh à compter du 16ème jour dans la même localité: <span class="required">*</span></label>
+                                    <div class="col-sm-4">
+                                        <h:inputText class="form-control" id="taux16" value="#{correspondrepasController.selected.taux16}" title="#{bundle.CreateCorrespondrepasTitle_taux16}" />
+                                    </div>
+                                </div>
+
+                            </div>
+                            <footer class="panel-footer">
+                                <div class="row">
+                                    <div class="col-sm-9 col-sm-offset-5">
+                                        <h:commandButton class="btn btn-primary" action="#{correspondrepasController.create}" value="Ajouter" /><b> </b>
+                                        <h:commandButton type="reset" class="btn btn-default" action="#{correspondrepasController.reinit}" value="Réinitialiser" />
+                                    </div>
+                                </div>
+                            </footer>
+                        </section>
+                    </h:form>
+    </ui:define>
+</ui:composition> 

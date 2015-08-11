@@ -6,6 +6,7 @@ import managed.util.PaginationHelper;
 import session.JourFeriesFacade;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -22,6 +23,8 @@ import javax.faces.model.SelectItem;
 @SessionScoped
 public class JourFeriesController implements Serializable {
 
+    private int max;
+    private List all;
     private JourFeries current;
     private DataModel items = null;
     @EJB
@@ -160,6 +163,16 @@ public class JourFeriesController implements Serializable {
         return items;
     }
 
+    
+    public List<JourFeries> getAll() {
+        all=ejbFacade.findAll();
+        return all;
+    }
+    public int getMax() {
+        max=ejbFacade.count();
+        return max+1;
+    }
+    
     private void recreateModel() {
         items = null;
     }
@@ -188,10 +201,11 @@ public class JourFeriesController implements Serializable {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
-    public JourFeries getJourFeries(java.lang.Integer id) {
+     public JourFeries getJourFeries(java.lang.Integer id) {
         return ejbFacade.find(id);
     }
 
+    
     @FacesConverter(forClass = JourFeries.class)
     public static class JourFeriesControllerConverter implements Converter {
 

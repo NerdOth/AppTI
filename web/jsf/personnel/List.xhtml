@@ -1,92 +1,119 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/jsf/header.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
 
-    <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.ListPersonnelTitle}"></h:outputText>
-        </ui:define>
-        <ui:define name="body">
-            <h:form styleClass="jsfcrud_list_form">
-                <h:panelGroup id="messagePanel" layout="block">
-                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-                </h:panelGroup>
-                <h:outputText escape="false" value="#{bundle.ListPersonnelEmpty}" rendered="#{personnelController.items.rowCount == 0}"/>
-                <h:panelGroup rendered="#{personnelController.items.rowCount > 0}">
-                    <h:outputText value="#{personnelController.pagination.pageFirstItem + 1}..#{personnelController.pagination.pageLastItem + 1}/#{personnelController.pagination.itemsCount}"/>&nbsp;
-                    <h:commandLink action="#{personnelController.previous}" value="#{bundle.Previous} #{personnelController.pagination.pageSize}" rendered="#{personnelController.pagination.hasPreviousPage}"/>&nbsp;
-                    <h:commandLink action="#{personnelController.next}" value="#{bundle.Next} #{personnelController.pagination.pageSize}" rendered="#{personnelController.pagination.hasNextPage}"/>&nbsp;
-                    <h:dataTable value="#{personnelController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+    <ui:define name="Titre">
+        Liste personnel
+    </ui:define>
+    <ui:define name="Page">
+        Liste du personnel
+    </ui:define>
+    <ui:define name="Page1">
+        Liste personnel
+    </ui:define>
+    
+
+    <ui:define name="body">
+
+        <section class="panel  panel-featured panel-featured-primary">
+                        <header class="panel-heading">
+                            <div class="panel-actions">
+                                <a href="#" class="fa fa-caret-down"></a>
+
+                            </div>
+
+                            <h2 class="panel-title">Liste du personnel</h2>
+                        </header>
+                        <div class="panel-body">
+                            
+                               
+                            <h:form>
+                                <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="mb-md">
+                                        <h:commandLink type="button"  class="btn btn-primary" 
+                                                       value="Ajouter"
+                                            action="#{personnelController.linkCreate}" >
+                                            <i class="fa fa-plus"></i> 
+                                        </h:commandLink>
+                                    </div>
+                                </div>
+                            </div>
+                            <h:dataTable value="#{personnelController.items}"  class="table table-bordered table-striped mb-none"  var="item" >
+                         <f:passThroughAttribute name="id" value="datatable-default" />
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListPersonnelTitle_idPerson}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.idPerson}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListPersonnelTitle_nom}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.nom}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListPersonnelTitle_prenom}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.prenom}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListPersonnelTitle_matricule}"/>
+                                <h:outputText value="Matricule"/>
                             </f:facet>
                             <h:outputText value="#{item.matricule}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListPersonnelTitle_cin}"/>
+                                <h:outputText value="Nom"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nom}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Prénom"/>
+                            </f:facet>
+                            <h:outputText value="#{item.prenom}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Sexe"/>
+                            </f:facet>
+                            <h:outputText value="Masculin" rendered="#{item.sexe==1}"/>
+                            <h:outputText value="Féminin" rendered="#{item.sexe==2}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="N° CIN"/>
                             </f:facet>
                             <h:outputText value="#{item.cin}"/>
                         </h:column>
+                        
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListPersonnelTitle_sexe}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.sexe}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListPersonnelTitle_residence}"/>
+                                <h:outputText value="Résidence"/>
                             </f:facet>
                             <h:outputText value="#{item.residence}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListPersonnelTitle_echelle}"/>
+                                <h:outputText value="Grade"/>
+                            </f:facet>
+                            <h:outputText value="#{item.grade}"/>
+                        </h:column>
+                         <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Echelle"/>
                             </f:facet>
                             <h:outputText value="#{item.echelle}"/>
                         </h:column>
+                         
                         <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="&nbsp;"/>
-                            </f:facet>
-                            <h:commandLink action="#{personnelController.prepareView}" value="#{bundle.ListPersonnelViewLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{personnelController.prepareEdit}" value="#{bundle.ListPersonnelEditLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{personnelController.destroy}" value="#{bundle.ListPersonnelDestroyLink}"/>
-                        </h:column>
-                    </h:dataTable>
-                </h:panelGroup>
-                <br />
-                <h:commandLink action="#{personnelController.prepareCreate}" value="#{bundle.ListPersonnelCreateLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.ListPersonnelIndexLink}"/>
-            </h:form>
-        </ui:define>
-    </ui:composition>
+                            <f:passThroughAttribute name="class" value="actions" />
 
-</html>
+                            <f:facet name="header">
+                                <h:outputText value="Actions"/>
+                            </f:facet>
+                            <b> </b>
+                            <h:commandLink  class="on-default edit-row" 
+                                    action="#{personnelController.prepareEdit}" >
+                                    <i class="fa fa-pencil"></i> 
+                            </h:commandLink> <b> </b>
+                            <h:commandLink type="button" class="on-default remove-row" 
+                                    action="#{personnelController.destroy}"
+                                     onclick="if(confirm('Vous voulez vraiment supprimer cette ligne du tableau ?'))return true; else return false;">
+                                    <i class="fa fa-trash-o"></i> 
+                            </h:commandLink>
+                            </h:column>
+                    </h:dataTable>
+                                </h:form> 
+                        </div>
+                    </section>
+    </ui:define>
+</ui:composition> 

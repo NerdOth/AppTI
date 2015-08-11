@@ -21,7 +21,7 @@ import javax.faces.model.SelectItem;
 @Named("intervalleRepasController")
 @SessionScoped
 public class IntervalleRepasController implements Serializable {
-
+    private String nomRepas;
     private IntervalleRepas current;
     private DataModel items = null;
     @EJB
@@ -100,7 +100,7 @@ public class IntervalleRepasController implements Serializable {
         try {
             getFacade().edit(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("IntervalleRepasUpdated"));
-            return "View";
+            return "List";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return null;
@@ -187,11 +187,20 @@ public class IntervalleRepasController implements Serializable {
     public SelectItem[] getItemsAvailableSelectOne() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
-
+    
     public IntervalleRepas getIntervalleRepas(java.lang.Integer id) {
         return ejbFacade.find(id);
     }
-
+    
+    public String getNomRepas() {
+        nomRepas="3cha";
+        if(current.getIdRepas()==1) nomRepas="ftour";
+        if(current.getIdRepas()==2) nomRepas="ghda";
+        return nomRepas; 
+    }
+    
+    
+    
     @FacesConverter(forClass = IntervalleRepas.class)
     public static class IntervalleRepasControllerConverter implements Converter {
 

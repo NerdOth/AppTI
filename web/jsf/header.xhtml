@@ -1,12 +1,16 @@
-<?xml version='1.0' encoding='UTF-8' ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html" class="fixed sidebar-left-collapsed">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" class="fixed sidebar-left-collapsed"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
     <h:head>
         <!-- Basic -->
         <meta charset="UTF-8"></meta>
 
-        <title>Table</title>
+        <title><ui:insert name="Titre">IMANOR</ui:insert></title>
 
         <!-- Mobile Metas -->
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" ></meta>
@@ -15,33 +19,37 @@
         <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css"></link>
 
         <!-- Vendor CSS -->
-        <link rel="stylesheet" href="resources/assets/vendor/bootstrap/css/bootstrap.css" ></link>
-        <link rel="stylesheet" href="resources/assets/vendor/font-awesome/css/font-awesome.css" ></link>
-        <link rel="stylesheet" href="resources/assets/vendor/magnific-popup/magnific-popup.css" ></link>
-        <link rel="stylesheet" href="resources/assets/vendor/bootstrap-datepicker/css/datepicker3.css" ></link>
+        <link rel="stylesheet" href="../../resources/assets/vendor/bootstrap/css/bootstrap.css" ></link>
+        <link rel="stylesheet" href="../../resources/assets/vendor/font-awesome/css/font-awesome.css" ></link>
+        <link rel="stylesheet" href="../../resources/assets/vendor/magnific-popup/magnific-popup.css" ></link>
+        <link rel="stylesheet" href="../../resources/assets/vendor/bootstrap-datepicker/css/datepicker3.css" ></link>
+        <link rel="stylesheet" href="../../resources/assets/vendor/bootstrap-timepicker/css/bootstrap-timepicker.css" ></link>
 
         <!-- Specific Page Vendor CSS -->
-        <link rel="stylesheet" href="resources/assets/vendor/select2/select2.css" ></link>
-        <link rel="stylesheet" href="resources/assets/vendor/jquery-datatables-bs3/assets/css/datatables.css" ></link>
+        <link rel="stylesheet" href="../../resources/assets/vendor/select2/select2.css" ></link>
+        <link rel="stylesheet" href="../../resources/assets/vendor/jquery-datatables-bs3/assets/css/datatables.css" ></link>
 
         <!-- Theme CSS -->
-        <link rel="stylesheet" href="resources/assets/stylesheets/theme.css" ></link>
+        <link rel="stylesheet" href="../../resources/assets/stylesheets/theme.css" ></link>
 
         <!-- Skin CSS -->
-        <link rel="stylesheet" href="resources/assets/stylesheets/skins/default.css" ></link>
+        <link rel="stylesheet" href="../../resources/assets/stylesheets/skins/default.css" ></link>
 
         <!-- Theme Custom CSS -->
-        <link rel="stylesheet" href="resources/assets/stylesheets/theme-custom.css"></link>
+        <link rel="stylesheet" href="../../resources/assets/stylesheets/theme-custom.css"></link>
 
         <!-- Head Libs -->
-        <script src="resources/assets/vendor/modernizr/modernizr.js"></script>
+        <script src="../../resources/assets/vendor/modernizr/modernizr.js"></script>
 
 
 
     </h:head>
 
 
-    <h:body>
+
+    <body>
+
+
 
         <section class="body">
 
@@ -49,7 +57,7 @@
             <header class="header">
                 <div class="logo-container">
                     <a href="../" class="logo">
-                        <img src="resources/assets/images/logo3.png" height="35" alt="IMANOR" />
+                        <img src="../../resources/assets/images/logo3.png" height="35" alt="IMANOR" ></img>
                     </a>
                     <div class="visible-xs toggle-sidebar-left" data-toggle-class="sidebar-left-opened" data-target="html" data-fire-event="sidebar-left-opened">
                         <i class="fa fa-bars" aria-label="Toggle sidebar"></i>
@@ -62,9 +70,9 @@
                     <form action="pages-search-results.html" class="search nav-form">
                         <div class="input-group input-search">
                             <input type="text" class="form-control" name="q" id="q" placeholder="Recherche..."></input>
-                                <span class="input-group-btn">
-                                    <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
-                                </span>
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
+                            </span>
                         </div>
                     </form>
 
@@ -73,7 +81,7 @@
                     <div id="userbox" class="userbox">
                         <a href="#" data-toggle="dropdown">
                             <figure class="profile-picture">
-                                <img src="resources/assets/images/!logged-user.jpg" alt="Joseph Doe" class="img-circle" data-lock-picture="assets/images/!logged-user.jpg" />
+                                <img src="../../resources/assets/images/!logged-user.jpg" alt="Joseph Doe" class="img-circle" data-lock-picture="assets/images/!logged-user.jpg" />
                             </figure>
                             <div class="profile-info" data-lock-name="" data-lock-email="">
                                 <span class="name">Responsable RH</span>
@@ -109,27 +117,25 @@
                             <i class="fa fa-bars" aria-label="Toggle sidebar"></i>
                         </div>
                     </div>
-                    
 
                     <div class="nano">
                         <div class="nano-content">
-                            
                             <nav id="menu" class="nav-main" role="navigation">
                                 <ul class="nav nav-main">
-                                    <li >
-                                        <a href="header2.html">
+                                    <li>
+                                        <a href="../index/index.xhtml">
                                             <i class="fa fa-home" aria-hidden="true"></i>
                                             <span>Accueil</span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="mailbox-folder.html">
+                                        <a href="../personnel/List.xhtml">
                                             <i class="fa fa-users" aria-hidden="true"></i>
                                             <span>Gestion du personnel</span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="table.html">
+                                        <a href="../ordreMission/List.xhtml">
                                             <i class="fa fa-files-o" aria-hidden="true"></i>
                                             <span>Gestion des ordres de mission</span>
                                         </a>
@@ -140,28 +146,33 @@
                                             <span>Paramétrage</span>
                                         </a>
                                         <ul class="nav nav-children">
+                                            
                                             <li>
-                                                <a href="pages-signup.html">
+                                                <a href="../voiture/List.xhtml">
+                                                    Gestion des voitures
+                                                </a>
+                                            </li><li>
+                                                <a href="../jourFeries/List.xhtml">
                                                     Gestion du calendrier
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="pages-signin.html">
+                                                <a href="../correspondrepas/List.xhtml">
                                                     Montant des repas
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="pages-recover-password.html">
+                                                <a href="../intervalleRepas/List.xhtml">
                                                     Horaires des repas
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="pages-lock-screen.html">
+                                                <a href="../correspondpf/List.xhtml">
                                                     Taux d’indemnités kilométriques
                                                 </a>
                                             </li>
                                         </ul>
-                                    </li>
+                                    </li>    
                                 </ul>
                             </nav>
 
@@ -175,93 +186,77 @@
 
 
 
+
+
                 <section role="main" class="content-body">
                     <header class="page-header">
-                        <h2>Page</h2>
+                        <h2><ui:insert name="Page">Default</ui:insert></h2>
 
                         <div class="right-wrapper pull-right">
                             <ol class="breadcrumbs">
                                 <li>
-                                    <a href="index.html">
+                                    <a href="../../index.xhtml">
                                         <i class="fa fa-home"></i>
                                     </a>
                                 </li>
-                                <li><span>Accueil</span></li>
-                                <li><span>Page</span></li>
+                                <li><span><ui:insert name="Page1"></ui:insert></span></li>
+                                <li><span><ui:insert name="Page2"></ui:insert></span></li>
                             </ol>
 
                             <a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fa fa-chevron-left"></i></a>
                         </div>
                     </header>
 
-
-
-
-
-                  
-                    <br />
-                    <h:link outcome="/jsf/compte/List" value="Show All Compte Items"/>
-                    <br />
-                    <h:link outcome="/jsf/correspondpf/List" value="Show All Correspondpf Items"/>
-                    <br />
-                    <h:link outcome="/jsf/correspondrepas/List" value="Show All Correspondrepas Items"/>
-                    <br />
-                    <h:link outcome="/jsf/intervalleRepas/List" value="Show All IntervalleRepas Items"/>
-                    <br />
-                    <h:link outcome="/jsf/jourFeries/List" value="Show All JourFeries Items"/>
-                    <br />
-                    <h:link outcome="/jsf/ordreMission/List" value="Show All OrdreMission Items"/>
-                    <br />
-                    <h:link outcome="/jsf/personnel/List" value="Show All Personnel Items"/>
-                    <br />
-                    <h:link outcome="/jsf/trimestre/List" value="Show All Trimestre Items"/>
-                    <br />
-                    <h:link outcome="/jsf/voiture/List" value="Show All Voiture Items"/>
-
+                    <!-- start: page -->
+                    <ui:insert name="body">Contenu de la page</ui:insert>
+                    <!-- start: page -->
+                   
+                    <!-- end: page -->
                 </section>
             </div>
 
+
+
+
+
+
+
+
+
+
+
+
+            <script src="../../resources/assets/vendor/jquery/jquery.js"></script>
+            <script src="../../resources/assets/vendor/jquery-browser-mobile/jquery.browser.mobile.js"></script>
+            <script src="../../resources/assets/vendor/bootstrap/js/bootstrap.js"></script>
+            <script src="../../resources/assets/vendor/nanoscroller/nanoscroller.js"></script>
+            <script src="../../resources/assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+            <script src="../../resources/assets/vendor/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
+            <script src="../../resources/assets/vendor/magnific-popup/magnific-popup.js"></script>
+            <script src="../../resources/assets/vendor/jquery-placeholder/jquery.placeholder.js"></script>
+
+            <!-- Specific Page Vendor -->
+            <script src="../../resources/assets/vendor/select2/select2.js"></script>
+            <script src="../../resources/assets/vendor/jquery-datatables/media/js/jquery.dataTables.js"></script>
+            <script src="../../resources/assets/vendor/jquery-datatables-bs3/assets/js/datatables.js"></script>
+
+            <!-- Theme Base, Components and Settings -->
+            <script src="../../resources/assets/javascripts/theme.js"></script>
+
+            <!-- Theme Custom -->
+            <script src="../../resources/assets/javascripts/theme.custom.js"></script>
+
+            <!-- Theme Initialization Files -->
+            <script src="../../resources/assets/javascripts/theme.init.js"></script>
+
+
+            <!-- Examples -->
+            <script src="../../resources/assets/javascripts/tables/examples.datatables.default.js"></script>
+
+            <ui:insert name="Scripts"></ui:insert>
+             
         </section>
-
-
-
-
-
-    </h:body>
-
-
-
-
-
-
-
-    <script src="resources/assets/vendor/jquery/jquery.js"></script>
-    <script src="resources/assets/vendor/jquery-browser-mobile/jquery.browser.mobile.js"></script>
-    <script src="resources/assets/vendor/bootstrap/js/bootstrap.js"></script>
-    <script src="resources/assets/vendor/nanoscroller/nanoscroller.js"></script>
-    <script src="resources/assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-    <script src="resources/assets/vendor/magnific-popup/magnific-popup.js"></script>
-    <script src="resources/assets/vendor/jquery-placeholder/jquery.placeholder.js"></script>
-
-    <!-- Specific Page Vendor -->
-    <script src="resources/assets/vendor/select2/select2.js"></script>
-    <script src="resources/assets/vendor/jquery-datatables/media/js/jquery.dataTables.js"></script>
-    <script src="resources/assets/vendor/jquery-datatables-bs3/assets/js/datatables.js"></script>
-
-    <!-- Theme Base, Components and Settings -->
-    <script src="resources/assets/javascripts/theme.js"></script>
-
-    <!-- Theme Custom -->
-    <script src="resources/assets/javascripts/theme.custom.js"></script>
-
-    <!-- Theme Initialization Files -->
-    <script src="resources/assets/javascripts/theme.init.js"></script>
-
-
-    <!-- Examples -->
-    <script src="resources/assets/javascripts/tables/examples.datatables.editable.js"></script>
-
-
+    </body>
 
 </html>
 

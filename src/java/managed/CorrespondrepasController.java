@@ -64,6 +64,7 @@ public class CorrespondrepasController implements Serializable {
 
     public String prepareList() {
         recreateModel();
+        selectedItemIndex = -1;
         return "List";
     }
 
@@ -76,7 +77,9 @@ public class CorrespondrepasController implements Serializable {
     public String prepareCreate() {
         current = new Correspondrepas();
         selectedItemIndex = -1;
-        return "Create";
+        recreatePagination();
+        recreateModel();
+        return "List";
     }
 
     public String create() {
@@ -89,7 +92,11 @@ public class CorrespondrepasController implements Serializable {
             return null;
         }
     }
-
+public void selectOne() {
+        current = (Correspondrepas) getItems().getRowData();
+        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        
+    }
     public String prepareEdit() {
         current = (Correspondrepas) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
@@ -100,7 +107,12 @@ public class CorrespondrepasController implements Serializable {
         try {
             getFacade().edit(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("CorrespondrepasUpdated"));
-            return "View";
+            current = new Correspondrepas();
+           
+        selectedItemIndex = -1;
+        recreatePagination();
+        recreateModel();
+            return "List";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return null;
@@ -113,6 +125,8 @@ public class CorrespondrepasController implements Serializable {
         performDestroy();
         recreatePagination();
         recreateModel();
+        current = new Correspondrepas();
+        selectedItemIndex = -1;
         return "List";
     }
 
@@ -125,6 +139,7 @@ public class CorrespondrepasController implements Serializable {
         } else {
             // all items were removed - go back to list
             recreateModel();
+            selectedItemIndex = -1;
             return "List";
         }
     }
@@ -132,6 +147,7 @@ public class CorrespondrepasController implements Serializable {
     private void performDestroy() {
         try {
             getFacade().remove(current);
+            selectedItemIndex = -1;
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("CorrespondrepasDeleted"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -142,7 +158,7 @@ public class CorrespondrepasController implements Serializable {
         int count = getFacade().count();
         if (selectedItemIndex >= count) {
             // selected index cannot be bigger than number of items:
-            selectedItemIndex = count - 1;
+            
             // go to previous page if last page disappeared:
             if (pagination.getPageFirstItem() >= count) {
                 pagination.previousPage();
@@ -167,6 +183,11 @@ public class CorrespondrepasController implements Serializable {
     private void recreatePagination() {
         pagination = null;
     }
+    public void reinit() {
+     current = new Correspondrepas();
+            selectedItemIndex = -1;
+        
+    }
 
     public String next() {
         getPagination().nextPage();
@@ -187,10 +208,11 @@ public class CorrespondrepasController implements Serializable {
     public SelectItem[] getItemsAvailableSelectOne() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
-
+    
     public Correspondrepas getCorrespondrepas(java.lang.Integer id) {
         return ejbFacade.find(id);
     }
+    
 
     @FacesConverter(forClass = Correspondrepas.class)
     public static class CorrespondrepasControllerConverter implements Converter {

@@ -242,7 +242,7 @@
 
                                         <th>Options</th>
 
-                                        <!--                                        <th>Fichiers</th>-->
+<!--                                        <th>Fichiers</th>-->
 
                                     </tr>
                                 </thead>
@@ -264,7 +264,7 @@
                                             <td>${ordre.moyenTransport}</td>
                                             <td>${ordre.kilometres}</td>
                                             <td id="indkilo" ordre="${ordre.person.voiture.pf.taux}" ><c:if test="#{ordre.kilometres!=null}">
-                                                    
+
 
                                                     ${ordre.person.voiture.pf.taux*ordre.kilometres*2}
                                                 </c:if>
@@ -282,12 +282,12 @@
 
                                             </td>
 
-                                            <!--                                            <td class="pdf">
-                                            
-                                                                                            <a href="#" id="edit" ordre="${ordre.idOrdre}" ><i class="fa fa-file-pdf-o"></i></a>
-                                                                                            <a href="#" ><i class="fa fa-file-pdf-o"></i></a>
-                                            
-                                                                                        </td>-->
+<!--                                            <td class="pdf">
+
+                                                <a href="#" ><i class="fa fa-file-pdf-o"></i></a>
+                                                <a href="#" ><i class="fa fa-file-pdf-o"></i></a>
+
+                                            </td>-->
                                         </tr>
 
                                     </c:forEach>     
@@ -372,7 +372,7 @@
 
 
             <script>
-             
+
 
                 (function ($) {
 
@@ -480,11 +480,10 @@
                         // ==========================================================================================
                         rowAdd: function () {
                             this.$addButton.attr({'disabled': 'disabled'});
-                            
-                           
-                            
+
+
+
                             var actions,
-                                    
                                     data,
                                     $row;
                             actions = [
@@ -687,9 +686,9 @@
                     var val = $("#kilo").val();
 
                     var pf = document.getElementById("indkilo").getAttribute("ordre");
-                    
-                   
-                    
+
+
+
                     document.getElementById("indem").setAttribute("value", val * pf * 2);
 
                 }

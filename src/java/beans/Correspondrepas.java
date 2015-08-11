@@ -130,7 +130,7 @@ public class Correspondrepas implements Serializable {
 
     @Override
     public String toString() {
-        return "beans.Correspondrepas[ echelle=" + echelle + " ]";
+        return echelle.toString() ;
     }
     
 }

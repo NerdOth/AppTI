@@ -1,72 +1,88 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/jsf/header.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
 
-    <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.ListTrimestreTitle}"></h:outputText>
-        </ui:define>
-        <ui:define name="body">
-            <h:form styleClass="jsfcrud_list_form">
-                <h:panelGroup id="messagePanel" layout="block">
-                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-                </h:panelGroup>
-                <h:outputText escape="false" value="#{bundle.ListTrimestreEmpty}" rendered="#{trimestreController.items.rowCount == 0}"/>
-                <h:panelGroup rendered="#{trimestreController.items.rowCount > 0}">
-                    <h:outputText value="#{trimestreController.pagination.pageFirstItem + 1}..#{trimestreController.pagination.pageLastItem + 1}/#{trimestreController.pagination.itemsCount}"/>&nbsp;
-                    <h:commandLink action="#{trimestreController.previous}" value="#{bundle.Previous} #{trimestreController.pagination.pageSize}" rendered="#{trimestreController.pagination.hasPreviousPage}"/>&nbsp;
-                    <h:commandLink action="#{trimestreController.next}" value="#{bundle.Next} #{trimestreController.pagination.pageSize}" rendered="#{trimestreController.pagination.hasNextPage}"/>&nbsp;
-                    <h:dataTable value="#{trimestreController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+    <ui:define name="Titre">
+        Trimestres
+    </ui:define>
+    <ui:define name="Page">
+       Les trimestres
+    </ui:define>
+    <ui:define name="Page1">
+        Trimestres
+    </ui:define>
+    
+
+    <ui:define name="body">
+<section class="panel">
+            <header class="panel-heading panel-heading-transparent">
+                <div class="panel-actions">
+                    <a href="#" class="fa fa-caret-down"></a>
+
+                </div>
+
+                <h2 class="panel-title">Liste des trimestres</h2>
+            </header>
+            <div class="panel-body">
+
+
+                <h:form>
+                    <h:dataTable value="#{trimestreController.items}" class="table table-striped mb-none" id="datatable-editable" var="item" >
+
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListTrimestreTitle_idTrim}"/>
+                                <h:outputText value="#"/>
                             </f:facet>
                             <h:outputText value="#{item.idTrim}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListTrimestreTitle_dateDebut}"/>
+                                <h:outputText value="Date début"/>
                             </f:facet>
                             <h:outputText value="#{item.dateDebut}">
-                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
                             </h:outputText>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListTrimestreTitle_dateFin}"/>
+                                <h:outputText value="Date fin"/>
                             </f:facet>
+                            
                             <h:outputText value="#{item.dateFin}">
-                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
                             </h:outputText>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListTrimestreTitle_etat}"/>
+                                <h:outputText value="Etat"/>
                             </f:facet>
-                            <h:outputText value="#{item.etat}"/>
+                            <h:outputText value="Clôturé" class="label label-success" rendered="#{item.etat==1}"/>
+                            <h:outputText value="En cours" class="label label-warning" rendered="#{item.etat==0}"/>
                         </h:column>
+
                         <h:column>
+                            <f:passThroughAttribute name="class" value="actions" />
+
                             <f:facet name="header">
-                                <h:outputText value="&nbsp;"/>
+                                <h:outputText value="Actions"/>
                             </f:facet>
-                            <h:commandLink action="#{trimestreController.prepareView}" value="#{bundle.ListTrimestreViewLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{trimestreController.prepareEdit}" value="#{bundle.ListTrimestreEditLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{trimestreController.destroy}" value="#{bundle.ListTrimestreDestroyLink}"/>
+                            <b> </b> 
+                            <h:commandLink  class="on-default edit-row" 
+                                            action="#{trimestreController.prepareEdit}" >
+                                <i class="fa fa-pencil"></i> 
+                            </h:commandLink> <b> </b>
                         </h:column>
                     </h:dataTable>
-                </h:panelGroup>
-                <br />
-                <h:commandLink action="#{trimestreController.prepareCreate}" value="#{bundle.ListTrimestreCreateLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.ListTrimestreIndexLink}"/>
-            </h:form>
-        </ui:define>
-    </ui:composition>
-
-</html>
+                </h:form> 
+            </div>
+        </section>
+        
+        
+        
+        
+        
+        
+    </ui:define>
+</ui:composition> 

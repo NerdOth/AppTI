@@ -63,6 +63,8 @@ public class CorrespondpfController implements Serializable {
     }
 
     public String prepareList() {
+        current = new Correspondpf();
+            selectedItemIndex = -1; 
         recreateModel();
         return "List";
     }
@@ -76,7 +78,9 @@ public class CorrespondpfController implements Serializable {
     public String prepareCreate() {
         current = new Correspondpf();
         selectedItemIndex = -1;
-        return "Create";
+         recreatePagination();
+        recreateModel();
+        return "List";
     }
 
     public String create() {
@@ -100,7 +104,11 @@ public class CorrespondpfController implements Serializable {
         try {
             getFacade().edit(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("CorrespondpfUpdated"));
-            return "View";
+             recreatePagination();
+        recreateModel();
+            current = new Correspondpf();
+        selectedItemIndex = -1;
+            return "List";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return null;
@@ -113,6 +121,8 @@ public class CorrespondpfController implements Serializable {
         performDestroy();
         recreatePagination();
         recreateModel();
+        current = new Correspondpf();
+        selectedItemIndex = -1;
         return "List";
     }
 
@@ -151,6 +161,11 @@ public class CorrespondpfController implements Serializable {
         if (selectedItemIndex >= 0) {
             current = getFacade().findRange(new int[]{selectedItemIndex, selectedItemIndex + 1}).get(0);
         }
+    }
+    public void reinit() {
+     current = new Correspondpf();
+            selectedItemIndex = -1; 
+        
     }
 
     public DataModel getItems() {
@@ -192,6 +207,7 @@ public class CorrespondpfController implements Serializable {
         return ejbFacade.find(id);
     }
 
+    
     @FacesConverter(forClass = Correspondpf.class)
     public static class CorrespondpfControllerConverter implements Converter {
 

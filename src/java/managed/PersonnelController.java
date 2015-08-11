@@ -31,7 +31,9 @@ public class PersonnelController implements Serializable {
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
-    
+    public PersonnelController() {
+    }
+
     
     public List<Personnel> getAll(){
         all = ejbFacade.findAll();
@@ -39,9 +41,10 @@ public class PersonnelController implements Serializable {
         
     }
     
-    public PersonnelController() {
+     public Personnel getPersonnel(java.lang.Integer id) {
+        return ejbFacade.find(id);
     }
-
+    
     public Personnel getSelected() {
         if (current == null) {
             current = new Personnel();
@@ -73,6 +76,7 @@ public class PersonnelController implements Serializable {
     }
 
     public String prepareList() {
+        recreatePagination();
         recreateModel();
         return "List";
     }
@@ -83,10 +87,17 @@ public class PersonnelController implements Serializable {
         return "View";
     }
 
-    public String prepareCreate() {
+    public String linkCreate() {
         current = new Personnel();
         selectedItemIndex = -1;
         return "Create";
+    }
+    public String prepareCreate() {
+        current = new Personnel();
+        recreatePagination();
+        recreateModel();
+        selectedItemIndex = -1;
+        return "List";
     }
 
     public String create() {
@@ -110,7 +121,9 @@ public class PersonnelController implements Serializable {
         try {
             getFacade().edit(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("PersonnelUpdated"));
-            return "View";
+            recreatePagination();
+        recreateModel();
+            return "List";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return null;
@@ -197,9 +210,10 @@ public class PersonnelController implements Serializable {
     public SelectItem[] getItemsAvailableSelectOne() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
-
-    public Personnel getPersonnel(java.lang.Integer id) {
-        return ejbFacade.find(id);
+      public void reinit() {
+     current = new Personnel();
+            selectedItemIndex = -1;
+        
     }
 
     @FacesConverter(forClass = Personnel.class)
@@ -243,3 +257,4 @@ public class PersonnelController implements Serializable {
     }
 
 }
+

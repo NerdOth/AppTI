@@ -1,74 +1,97 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/jsf/header.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
 
-    <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.ListVoitureTitle}"></h:outputText>
-        </ui:define>
-        <ui:define name="body">
-            <h:form styleClass="jsfcrud_list_form">
-                <h:panelGroup id="messagePanel" layout="block">
-                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-                </h:panelGroup>
-                <h:outputText escape="false" value="#{bundle.ListVoitureEmpty}" rendered="#{voitureController.items.rowCount == 0}"/>
-                <h:panelGroup rendered="#{voitureController.items.rowCount > 0}">
-                    <h:outputText value="#{voitureController.pagination.pageFirstItem + 1}..#{voitureController.pagination.pageLastItem + 1}/#{voitureController.pagination.itemsCount}"/>&nbsp;
-                    <h:commandLink action="#{voitureController.previous}" value="#{bundle.Previous} #{voitureController.pagination.pageSize}" rendered="#{voitureController.pagination.hasPreviousPage}"/>&nbsp;
-                    <h:commandLink action="#{voitureController.next}" value="#{bundle.Next} #{voitureController.pagination.pageSize}" rendered="#{voitureController.pagination.hasNextPage}"/>&nbsp;
-                    <h:dataTable value="#{voitureController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+    <ui:define name="Titre">
+        Liste voitures
+    </ui:define>
+    <ui:define name="Page">
+        Liste des voitures
+    </ui:define>
+    <ui:define name="Page1">
+        Liste voitures
+    </ui:define>
+    
+
+    <ui:define name="body">
+
+        <section class="panel  panel-featured panel-featured-primary">
+                        <header class="panel-heading">
+                            <div class="panel-actions">
+                                <a href="#" class="fa fa-caret-down"></a>
+
+                            </div>
+
+                            <h2 class="panel-title">Liste des voitures</h2>
+                        </header>
+                        <div class="panel-body">
+                            
+                               
+                            <h:form>
+                                <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="mb-md">
+                                        <h:commandLink type="button"  class="btn btn-primary" 
+                                                       value="Ajouter"
+                                            action="#{voitureController.linkCreate}" >
+                                            <i class="fa fa-plus"></i> 
+                                        </h:commandLink>
+                                    </div>
+                                </div>
+                            </div>
+                            <h:dataTable value="#{voitureController.items}"  class="table table-bordered table-striped mb-none"  var="item" >
+                         <f:passThroughAttribute name="id" value="datatable-default" />
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListVoitureTitle_idVoiture}"/>
+                                <h:outputText value="Propriétaire"/>
                             </f:facet>
-                            <h:outputText value="#{item.idVoiture}"/>
+                            <h:outputText value="#{item.personne.nom}  #{item.personne.prenom}"/>
                         </h:column>
-                        <h:column>
+                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListVoitureTitle_matricule}"/>
+                                <h:outputText value="Matricule"/>
                             </f:facet>
                             <h:outputText value="#{item.matricule}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListVoitureTitle_marque}"/>
+                                <h:outputText value="Marque"/>
                             </f:facet>
                             <h:outputText value="#{item.marque}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListVoitureTitle_pf}"/>
+                                <h:outputText value="Puissance fiscale"/>
                             </f:facet>
                             <h:outputText value="#{item.pf}"/>
                         </h:column>
+                       
+                        
+                        
+                        
+                         
                         <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListVoitureTitle_personne}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.personne}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="&nbsp;"/>
-                            </f:facet>
-                            <h:commandLink action="#{voitureController.prepareView}" value="#{bundle.ListVoitureViewLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{voitureController.prepareEdit}" value="#{bundle.ListVoitureEditLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{voitureController.destroy}" value="#{bundle.ListVoitureDestroyLink}"/>
-                        </h:column>
-                    </h:dataTable>
-                </h:panelGroup>
-                <br />
-                <h:commandLink action="#{voitureController.prepareCreate}" value="#{bundle.ListVoitureCreateLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.ListVoitureIndexLink}"/>
-            </h:form>
-        </ui:define>
-    </ui:composition>
+                            <f:passThroughAttribute name="class" value="actions" />
 
-</html>
+                            <f:facet name="header">
+                                <h:outputText value="Actions"/>
+                            </f:facet>
+                           <b> </b>
+                            <h:commandLink  class="on-default edit-row" 
+                                    action="#{voitureController.prepareEdit}" >
+                                    <i class="fa fa-pencil"></i> 
+                            </h:commandLink> <b> </b>
+                            <h:commandLink type="button" class="on-default remove-row" 
+                                    action="#{voitureController.destroy}"
+                                     onclick="if(confirm('Vous voulez vraiment supprimer cette ligne du tableau ?'))return true; else return false;">
+                                    <i class="fa fa-trash-o"></i> 
+                            </h:commandLink>
+                            </h:column>
+                    </h:dataTable>
+                                </h:form> 
+                        </div>
+                    </section>
+    </ui:define>
+</ui:composition> 
