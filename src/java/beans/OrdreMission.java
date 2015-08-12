@@ -6,6 +6,9 @@
 package beans;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -84,8 +87,8 @@ public class OrdreMission implements Serializable {
     public OrdreMission() {
     }
 
-    public OrdreMission(Integer idordre,Float montant, String ville, Date dateAller, Date heureAller, String objetMission, String moyenTransport, Float kilometres, String num, Personnel person, Trimestre trim1) {
-        this.idOrdre=idordre;
+    public OrdreMission(Integer idordre, Float montant, String ville, Date dateAller, Date heureAller, String objetMission, String moyenTransport, Float kilometres, String num, Personnel person, Trimestre trim1) {
+        this.idOrdre = idordre;
         this.montant = montant;
         this.ville = ville;
         this.dateAller = dateAller;
@@ -126,16 +129,37 @@ public class OrdreMission implements Serializable {
         this.ville = ville;
     }
 
-    public Date getDateAller() {
-        return dateAller;
+    public String getDateAller() {
+        if (dateAller != null) {
+
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+       
+        String formatedDate = sdf.format(dateAller);
+
+            return formatedDate;
+        } else {
+            return null;
+        }
     }
 
     public void setDateAller(Date dateAller) {
         this.dateAller = dateAller;
     }
 
-    public Date getHeureAller() {
-        return heureAller;
+    public String getHeureAller() {
+
+        if (heureAller!=null) {
+            
+        SimpleDateFormat sdf = new SimpleDateFormat("HH");
+       
+        String formatedDate = sdf.format(heureAller);
+
+
+        return formatedDate;
+        }else {
+            return null;
+        }
+        
     }
 
     public void setHeureAller(Date heureAller) {
