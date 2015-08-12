@@ -35,7 +35,7 @@
                             <f:facet name="header">
                                 <h:outputText value="#"/>
                             </f:facet>
-                            <h:outputText value="#{item.idTrim}"/>
+                            <h:commandLink  action="#{trimestreController.prepareView}" value="#{item.idTrim+1}"> </h:commandLink>
                         </h:column>
                         <h:column>
                             <f:facet name="header">

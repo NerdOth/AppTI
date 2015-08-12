@@ -70,7 +70,7 @@ public class TrimestreController implements Serializable {
     public String prepareView() {
         current = (Trimestre) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        return "View";
+        return "/ordreMission/List";
     }
 
     public String prepareCreate() {

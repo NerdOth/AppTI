@@ -82,7 +82,7 @@ public class GetOrdreServlet extends HttpServlet {
             } else {
 
                 SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
-                SimpleDateFormat hourFormatter = new SimpleDateFormat("h:mm");
+                SimpleDateFormat hourFormatter = new SimpleDateFormat("h");
 
                 String attr = request.getParameter("attr");
                 String output = request.getParameter("json");
